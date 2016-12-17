@@ -48,7 +48,7 @@ public class Base64 {
 		}catch(Exception e){
 			Main.instance.getErrorManager().registerError(e);
 			throw new DecodingException();
-		}4
+		}
 	}
 	
 	/**
