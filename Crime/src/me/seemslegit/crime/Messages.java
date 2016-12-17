@@ -3,10 +3,10 @@ package me.seemslegit.crime;
 public final class Messages {
 
 	//General
-	public static String prefix = "";
+	public static String prefix = "ยงcCrime ยง8> ";
 
 	//Player messages
-	public static String p_join  = "ง8[งa+ง8] %1% joined the game.";
-	public static String p_leave = "ง8[ง4-ง8] %1% left the game.";
+	public static String p_join  = "ยง8[ยงa+ยง8] %1% joined the game.";
+	public static String p_leave = "ยง8[ยง4-ยง8] %1% left the game.";
 	
 }
