@@ -1,4 +1,4 @@
 name: Crime
-main: me.seemslegit.plugin.Main
+main: me.seemslegit.crime.plugin.Main
 version: 1.0.0
 author: _SeemsLegit_, BadKey
