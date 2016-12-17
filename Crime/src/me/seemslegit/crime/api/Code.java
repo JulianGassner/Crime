@@ -2,6 +2,8 @@ package me.seemslegit.crime.api;
 
 import java.util.Random;
 
+
+
 public class Code {
 
 	private String code = "";
@@ -58,5 +60,7 @@ public class Code {
 	public String getCode() {
 		return code;
 	}
+	
+
 
 }
