@@ -26,41 +26,80 @@ public class ItemAPI {
 		
 	}
 	
+	/**
+	 * 
+	 * @param c {@link Color}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI color(Color c) {
 		this.leathercolor = c;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param lore {@link String}[]
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI lore(String... lore) {
 		this.lore = lore;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param owner {@link String}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI skullOwner(String owner) {
 		this.skullowner = owner;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param display {@link String}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI displayName(String display) {
 		this.display = display;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param s {@link Short}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI data(short s) {
 		this.data = s;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param m {@link Material}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI material(Material m) {
 		this.mat = m;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param a {@link Integer}
+	 * @return {@link ItemAPI}
+	 */
 	public ItemAPI amout(int a) {
 		this.amout = a;
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @return {@link ItemStack}
+	 */
 	public ItemStack build() {
 		ItemStack i = new ItemStack(mat, amout, data);
 		ItemMeta im = i.getItemMeta();
