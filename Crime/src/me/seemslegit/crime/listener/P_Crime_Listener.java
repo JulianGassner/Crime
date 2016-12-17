@@ -12,6 +12,10 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class P_Crime_Listener implements Listener{
 
+	/**
+	 * 
+	 * @param e {@link EntityDeathEvent}
+	 */
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
 		if(e.getEntity() instanceof Player) {
@@ -28,6 +32,11 @@ public class P_Crime_Listener implements Listener{
 		}
 	}
 	
+	/**
+	 * 
+	 * @param u {@link User}
+	 * @param killer {@link Entity}
+	 */
 	private void checkDeath(User u, Entity killer) {
 		
 		if(u.hasCrime()) {

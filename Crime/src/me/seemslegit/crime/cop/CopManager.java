@@ -1,5 +1,7 @@
 package me.seemslegit.crime.cop;
 
+import me.seemslegit.crime.playerapi.User;
+
 import org.bukkit.entity.Player;
 
 public class CopManager {
@@ -17,13 +19,30 @@ public class CopManager {
 	 * @param p {@link Player}
 	 * @return {@link Boolean}
 	 */
-	public static boolean isCop(Player p) {
-		return true;
+	public static boolean isCop(User u) {
+		if(u.hasCrime()) return false;
+		return u.getStats().getBoolean("cop", false);
 	}
 	
-	public static String switchCop(Player p){
-		return "erfolg";
+	/**
+	 * 
+	 * @param u {@link User}
+	 * @return {@link String}
+	 */
+	public static String switchCop(User u){
+		boolean b = u.getStats().getBoolean("cop", false);
+		if(!b) {
+			if(u.hasCrime()) {
+				return "not successful";
+			}else{
+				b = true;
+			}
+		}else{
+			b = false;
+		}
 		
+		u.getStats().set("cop", b);
+		return "successful";
 	}
 	
 	

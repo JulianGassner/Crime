@@ -136,6 +136,7 @@ public class Config extends YamlConfiguration{
 	public void set(String path, Object value) {
 		super.set(path, value);
 		super.set("Config.LastEdit", new Date().toString());
+		save();
 	}
 	
 	/**
