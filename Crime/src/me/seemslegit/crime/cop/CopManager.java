@@ -1,5 +1,7 @@
 package me.seemslegit.crime.cop;
 
+import org.bukkit.entity.Player;
+
 public class CopManager {
 
 	public CopManager() {
@@ -8,6 +10,15 @@ public class CopManager {
 	
 	private void init() {
 		
+	}
+	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @return {@link Boolean}
+	 */
+	public static boolean isCop(Player p) {
+		return true;
 	}
 	
 }
