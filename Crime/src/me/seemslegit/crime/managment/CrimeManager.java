@@ -5,6 +5,8 @@ import me.seemslegit.crime.playerapi.UserBase;
 public class CrimeManager {
 
 	public static final long MAX_CRIME = 1*60*60*24;
+	public static final long CRIME_PER_KILL = 1100;
+	public static final long CRIME_PER_ROB = 480;
 	
 	private void init() {
 		
@@ -14,6 +16,14 @@ public class CrimeManager {
 		init();
 	}
 
+	/**
+	 * 
+	 * @param u {@link UserBase}
+	 */
+	public void clearCrime(UserBase u) {
+		setCrime(u, 0);
+	}
+	
 	/**
 	 * 
 	 * @param u {@link UserBase}
