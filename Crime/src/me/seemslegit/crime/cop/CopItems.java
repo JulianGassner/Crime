@@ -6,7 +6,7 @@ public class CopItems {
 	
 	public static void giveCopItems(Player p){
 		
-		
+		player xx = player;
 	}
 
 }
