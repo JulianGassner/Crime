@@ -1,4 +1,4 @@
-package me.seemslegit.crime.api;
+package me.seemslegit.crime.decodings;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
