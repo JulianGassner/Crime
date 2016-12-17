@@ -6,15 +6,15 @@ import me.seemslegit.crime.api.Config;
 
 public class UserConfig extends Config{
 
-	private User u;
+	private UserBase u;
 	private String cfg;
 	
 	/**
 	 * 
-	 * @param u {@link User}
+	 * @param u {@link UserBase}
 	 * @param cfg {@link String}
 	 */
-	public UserConfig(User u, String cfg) {
+	public UserConfig(UserBase u, String cfg) {
 		super(new File("DB//" + u.getUUID().toString(), cfg + ".yml"));
 		this.u = u;
 		this.cfg = cfg;
@@ -22,9 +22,9 @@ public class UserConfig extends Config{
 	
 	/**
 	 * 
-	 * @return {@link User}
+	 * @return {@link UserBase}
 	 */
-	public User getUser() {
+	public UserBase getUser() {
 		return u;
 	}
 	

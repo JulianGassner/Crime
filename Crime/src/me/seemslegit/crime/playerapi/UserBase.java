@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
-abstract class UserBase {
+public abstract class UserBase {
 
 	private UUID u;
 	
@@ -30,6 +30,23 @@ abstract class UserBase {
 	 */
 	public String getName() {
 		return Bukkit.getOfflinePlayer(getUUID()).getName();
+	}
+	
+	/**
+	 * 
+	 * @return {@link UserConfig}
+	 */
+	public UserConfig getStats() {
+		return getConfig("playerStats");
+	}
+	
+	/**
+	 * 
+	 * @param name {@link String}
+	 * @return {@link UserConfig}
+	 */
+	public UserConfig getConfig(String name) {
+		return new UserConfig(this, name);
 	}
 	
 }
