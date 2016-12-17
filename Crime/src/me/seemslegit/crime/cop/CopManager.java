@@ -21,4 +21,10 @@ public class CopManager {
 		return true;
 	}
 	
+	public static String switchCop(Player p){
+		return "erfolg";
+		
+	}
+	
+	
 }
