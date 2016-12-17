@@ -20,6 +20,7 @@ public class User extends UserBase {
 	 * 
 	 * @param name {@link String}
 	 */
+	@SuppressWarnings("deprecation")
 	public User(String name) {
 		this(Bukkit.getOfflinePlayer(name));
 	}
