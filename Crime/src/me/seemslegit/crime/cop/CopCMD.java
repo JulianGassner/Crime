@@ -1,15 +1,14 @@
 package me.seemslegit.crime.cop;
 
+import me.seemslegit.crime.Messages;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.seemslegit.crime.Messages;
-
 public class CopCMD implements CommandExecutor{
 
-	@Override
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(!(cs instanceof Player)){
 			cs.sendMessage("You have to be a player !");
