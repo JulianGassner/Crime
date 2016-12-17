@@ -1,5 +1,6 @@
 package me.seemslegit.crime.managment;
 
+import me.seemslegit.crime.cop.CopManager;
 import me.seemslegit.crime.playerapi.UserBase;
 
 public class CrimeManager {
@@ -32,6 +33,8 @@ public class CrimeManager {
 	public void setCrime(UserBase u, long crime) {
 		if(crime < 0) crime = 0;
 		if(crime > MAX_CRIME) crime = MAX_CRIME;
+		
+		if(crime > 0) CopManager.switchCop(u);
 		u.getStats().set("crime", System.currentTimeMillis() + (crime * 1000));
 	}
 	
