@@ -29,16 +29,19 @@ public class CopCMD implements CommandExecutor {
 				p.sendMessage(Messages.error);
 			}
 			else if (args[0].equalsIgnoreCase("switch")) {
-				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + Main.instance.getCopManager().switchCop(u)
-						+ "§a!");
+				boolean changed = Main.instance.getCopManager().switchCop(u);
+				
+				if(!changed) {
+					p.sendMessage(Messages.prefix + " §cYou can switch right now. You got crime.");
+					return true;
+				}
 				
 				if(u.isCop()) {
 					//WIRD COP
-					u.cacheInventory(p.getInventory());
-					CopItems.giveCopItems(p);
+					p.sendMessage("*du bist jz cop*");
 				}else{
 					//WIRD NORMAL 
-					u.setInventory(u.loadCachedInventory());
+					p.sendMessage("*du bist jz wd normal*");
 				}
 			} else if (args[0].equalsIgnoreCase("respawn")) {
 				p.sendMessage(Messages.prefix

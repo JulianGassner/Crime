@@ -1,8 +1,10 @@
 package me.seemslegit.crime.cop;
 
+import me.seemslegit.crime.api.PlayerCache;
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.managment.ItemManager;
 import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.entity.Player;
@@ -16,10 +18,13 @@ public class CopItems implements Listener {
 	/**
 	 * 
 	 * @param p
-	 *            {@link Player}
+	 *            {@link UserBase}
 	 */
-	public static void giveCopItems(Player p) {
+	public static void giveCopItems(UserBase u) {
 
+		Player p = u.getPlayer();
+		if(p == null) return;
+		
 		ItemManager im = Main.instance.getItemManager();
 
 		ItemStack copsword = im.getItem("copsword");
@@ -28,12 +33,14 @@ public class CopItems implements Listener {
 		ItemStack tortch = im.getItem("cit");
 		ItemStack tnt = im.getItem("c4");
 
-		p.getInventory().clear();
+		new PlayerCache(p).clearPlayer();
+		
 		p.getInventory().setItem(0, copsword);
 		p.getInventory().setItem(1, handcuffs);
 		p.getInventory().setItem(2, shears);
 		p.getInventory().setItem(3, tortch);
 		p.getInventory().setItem(4, tnt);
+		p.updateInventory();
 
 	}
 
