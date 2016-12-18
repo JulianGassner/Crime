@@ -1,11 +1,11 @@
 package me.seemslegit.crime.cop;
 
+import java.util.ArrayList;
+
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.listener.P_Cop_Listener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
-
-import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -113,7 +113,7 @@ public class CopManager {
 			
 			if(item == null || item.getType() == Material.AIR) continue;
 			
-			if(!CrimeItem.isIllegal(item)) {
+			if(CrimeItem.isIllegal(item)) {
 				inv.setItem(i, null);
 			}
 			
