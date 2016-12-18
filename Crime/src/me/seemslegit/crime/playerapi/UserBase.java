@@ -30,6 +30,29 @@ public abstract class UserBase {
 		return Main.instance.getCopManager().isCop(this);
 	}
 	
+	public void resetJailTime() {
+		setJailTime(-1);
+	}
+	
+	/**
+	 * 
+	 * @param jt {@link Long}
+	 */
+	public void setJailTime(long jt) {
+		if(jt > 60*30) jt = 60*30;
+		getStats().set("jailtime", jt);
+	}
+	
+	/**
+	 * 
+	 * @return {@link Long}
+	 */
+	public long getJailTime() {
+		long jt = getStats().getLong("jailtime", -1);
+		if(jt > 60*30) jt = 60*30;
+		return jt;
+	}
+	
 	/**
 	 * 
 	 * @return {@link Boolean}

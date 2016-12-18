@@ -76,7 +76,7 @@ public class JailManager {
 	 */
 	public void removeFromJail(UserBase u) {
 		u.getStats().set("jail", false);
-		
+		u.resetJailTime();
 	}
 	
 	

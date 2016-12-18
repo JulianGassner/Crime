@@ -5,6 +5,7 @@ import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public final class Jail {
 
@@ -17,6 +18,13 @@ public final class Jail {
 	public void initPlayer(UserBase u) {
 		
 		Main.instance.getCopManager().removeIllegalItems(u);
+		
+		Player p = u.getPlayer();
+		
+		if(p == null) return;
+		
+		Location loc = getLocation();
+		if(loc != null) p.teleport(loc);
 		
 	}
  	
