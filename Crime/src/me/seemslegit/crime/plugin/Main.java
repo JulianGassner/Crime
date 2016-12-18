@@ -18,6 +18,7 @@ import me.seemslegit.crime.managment.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
@@ -36,6 +37,7 @@ public class Main extends JavaPlugin{
 	private ItemManager mng_item;
 	private CopManager mng_cop;
 	private Thread crimethread;
+	private boolean started = false;
 	
 	private void initCommands() {
 		
@@ -60,21 +62,35 @@ public class Main extends JavaPlugin{
 		mng_item = new ItemManager();
 		mng_cop = new CopManager();
 		
+		mng_item.init();
+		
 		initCommands();
 		startCrimeThread();
 	}
 	
 	public void onEnable() {
+		for(Player p : Bukkit.getOnlinePlayers()) p.kickPlayer("§8> §cServer will be back soon...");
 		instance = this;
 		
 		init();
+		started = true;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean isStarted() {
+		return started;
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onDisable() {
+		for(Player p : Bukkit.getOnlinePlayers()) p.kickPlayer("§8> §cServer will be back soon...");
 		Bukkit.getScheduler().cancelAllTasks();
 		if(crimethread != null) crimethread.stop();
+		started = false;
 	}
 	
 	/**

@@ -2,17 +2,17 @@ package me.seemslegit.crime.managment;
 
 import java.util.ArrayList;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
 import me.seemslegit.crime.api.ItemAPI;
 import me.seemslegit.crime.items.CrimeItem;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class ItemManager {
 
 	public ArrayList<CrimeItem> items = new ArrayList<CrimeItem>();
 
-	private void init() {
+	public void init() {
 
 		CrimeItem bread = new CrimeItem("bread", new ItemAPI()
 				.material(Material.BREAD).displayName("§eBread").lore("§7Lore")
@@ -58,7 +58,7 @@ public class ItemManager {
 	}
 
 	public ItemManager() {
-		init();
+		//init();
 	}
 
 	/**
