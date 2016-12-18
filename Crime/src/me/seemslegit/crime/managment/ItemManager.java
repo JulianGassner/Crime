@@ -15,8 +15,9 @@ public class ItemManager {
 	private void init() {
 
 		items.add(new CrimeItem("bread", new ItemAPI().material(Material.BREAD)
-				.displayName("§3Bread")
+				.displayName("§eBread")
 				.lore("§7Lore")
+				.amout(2)
 				.build()));
 
 	}

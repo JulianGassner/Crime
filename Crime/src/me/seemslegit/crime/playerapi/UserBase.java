@@ -26,6 +26,14 @@ public abstract class UserBase {
 	 * 
 	 * @return {@link Boolean}
 	 */
+	public boolean isCop() {
+		return Main.instance.getCopManager().isCop(this);
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
 	public boolean isInJail() {
 		return Main.instance.getJailManager().isInJail(this);
 	}
