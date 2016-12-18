@@ -5,6 +5,7 @@ import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.plugin.Main;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
@@ -44,7 +45,7 @@ public class P_Crime_Listener implements Listener{
 		
 		for(int i = 0;i<p.getInventory().getSize();i++) {
 			ItemStack item = p.getInventory().getItem(i);
-			
+			if(item == null || item.getType() == Material.AIR) continue;
 			if(CrimeItem.shouldDrop(item)) {
 				p.getWorld().dropItem(p.getLocation(), item);
 				p.getInventory().setItem(i, null);

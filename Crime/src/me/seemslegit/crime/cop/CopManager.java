@@ -5,6 +5,7 @@ import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -81,6 +82,8 @@ public class CopManager {
 		for(int i = 0;i<inv.getSize();i++) {
 			
 			ItemStack item = inv.getItem(i);
+			
+			if(item == null || item.getType() == Material.AIR) continue;
 			
 			if(!CrimeItem.isIllegal(item)) {
 				inv.setItem(i, null);
