@@ -49,6 +49,7 @@ public class CopItems implements Listener{
 				CopManager.cuff(new User(p));
 				
 			}else if(p.getItemInHand().getType().equals(copsword.getType())){
+			//
 			}
 		}
 	}
