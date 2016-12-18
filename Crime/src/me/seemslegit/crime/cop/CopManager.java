@@ -1,5 +1,7 @@
 package me.seemslegit.crime.cop;
 
+import org.bukkit.Bukkit;
+
 import me.seemslegit.crime.playerapi.UserBase;
 
 public class CopManager {
@@ -9,7 +11,7 @@ public class CopManager {
 	}
 	
 	private void init() {
-		
+		Bukkit.getPluginCommand("cop").setExecutor(new CopCMD());
 	}
 	
 	/**
