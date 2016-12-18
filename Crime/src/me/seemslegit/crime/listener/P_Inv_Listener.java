@@ -25,6 +25,8 @@ public class P_Inv_Listener implements Listener{
 		
 		User u = new User(p);
 		
+		if(u.isCop()) return;
+		
 		u.cacheInventory(p.getInventory());
 		
 		p.getInventory().clear();
@@ -41,6 +43,8 @@ public class P_Inv_Listener implements Listener{
 		Player p = e.getPlayer();
 		
 		User u = new User(p);
+		
+		if(u.isCop()) return;
 		
 		Inventory inv = u.loadCachedInventory();
 		

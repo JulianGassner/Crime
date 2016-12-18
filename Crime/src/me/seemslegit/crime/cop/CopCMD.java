@@ -34,10 +34,11 @@ public class CopCMD implements CommandExecutor {
 				
 				if(u.isCop()) {
 					//WIRD COP
+					u.cacheInventory(p.getInventory());
 					CopItems.giveCopItems(p);
 				}else{
 					//WIRD NORMAL 
-					
+					u.setInventory(u.loadCachedInventory());
 				}
 			} else if (args[0].equalsIgnoreCase("respawn")) {
 				p.sendMessage(Messages.prefix
