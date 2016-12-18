@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import me.seemslegit.crime.api.ItemAPI;
 import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.items.ItemFunctions;
+import me.seemslegit.crime.plugin.Main;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,10 +16,22 @@ public class ItemManager {
 	public ArrayList<CrimeItem> items = new ArrayList<CrimeItem>();
 
 	public void init() {
-
+		Bukkit.getPluginManager().registerEvents(new ItemFunctions(), Main.instance);
+		
+		CrimeItem drugs = new CrimeItem("drugs", new ItemAPI().material(Material.SUGAR).displayName("§cDrugs").build());
+		drugs.setUnbreakable(false);
+		drugs.setIllegal(true);
+		drugs.register();
+		
+		CrimeItem rawdrugs = new CrimeItem("rawdrugs", new ItemAPI().material(Material.SUGAR_CANE).displayName("§cRaw Drugs").build());
+		rawdrugs.setUnbreakable(false);
+		rawdrugs.setIllegal(true);
+		rawdrugs.register();
+		
 		CrimeItem wheat = new CrimeItem("wheat", new ItemAPI()
 				.material(Material.WHEAT).displayName("§eWheat").lore("§7Food")
 				.amout(1).build());
+		wheat.setUnbreakable(false);
 		wheat.register();
 
 		CrimeItem bread = new CrimeItem("bread", new ItemAPI()
