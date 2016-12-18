@@ -17,6 +17,15 @@ public final class Jail {
 	 */
 	public void initPlayer(UserBase u) {
 		
+		if(u.hasCrime()) {
+			long crime = u.getCrime();
+			
+			long jt = crime / 10;
+			
+			u.setJailTime(u.getJailTime() + jt);
+			u.resetCrime();
+		}
+		
 		Main.instance.getCopManager().removeIllegalItems(u);
 		
 		Player p = u.getPlayer();
