@@ -25,7 +25,7 @@ public class CrimeManager {
 	 * @param u {@link UserBase}
 	 */
 	public void clearCrime(UserBase u) {
-		setCrime(u, 0);
+		u.getStats().set("crime", null);
 	}
 	
 	/**

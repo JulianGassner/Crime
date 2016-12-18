@@ -1,17 +1,17 @@
 package me.seemslegit.crime.cop;
 
 
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.listener.P_Cop_Listener;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.listener.P_Cop_Listener;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
 
 
 
@@ -28,6 +28,7 @@ public class CopManager {
 		Bukkit.getPluginCommand("cop").setExecutor(new CopCMD());
 		
 		Bukkit.getPluginManager().registerEvents(new P_Cop_Listener(), Main.instance);
+		Bukkit.getPluginManager().registerEvents(new CopItems(), Main.instance);
 	}
 	
 	/**
@@ -73,6 +74,7 @@ public class CopManager {
 	public void cuff(UserBase u){
 		if(u.isOnline() == true){
 			u.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*100000, 2));
+			u.getPlayer().sendMessage("§8> §cYou've been cuffed!");
 			if(!(isCuffed(u))){
 				u.getStats().set("cuffed", true);
 				//u.getStats().set("jail", true);
@@ -86,6 +88,10 @@ public class CopManager {
 	 */
 	public void uncuff(UserBase u){
 		if(!isCuffed(u) == false){
+			if(u.isOnline()) {
+				u.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+				u.getPlayer().sendMessage("§8> §aYou've been uncuffed!");
+			}
 			u.getStats().set("cuffed", false);
 			u.resetCrime();
 			u.getStats().set("jail", false);
