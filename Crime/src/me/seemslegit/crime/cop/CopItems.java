@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -89,8 +90,9 @@ public class CopItems implements Listener {
 	 * @param e {@link BlockPlaceEvent}
 	 */
 	@SuppressWarnings("deprecation")
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPlace(BlockPlaceEvent e){
-		
+		if(e.isCancelled()) return;
 		if(e.getBlock().getType().equals(Material.TNT)){
 			Location block = e.getBlock().getLocation();
 			block.getBlock().setTypeId(0);

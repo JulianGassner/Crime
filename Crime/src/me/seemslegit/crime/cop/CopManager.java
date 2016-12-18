@@ -1,11 +1,5 @@
 package me.seemslegit.crime.cop;
 
-import java.util.ArrayList;
-
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.listener.P_Cop_Listener;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -13,6 +7,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.listener.P_Cop_Listener;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 
 
