@@ -1,15 +1,7 @@
 package me.seemslegit.crime.cop;
 
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.api.PlayerCache;
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.managment.ItemManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
-import net.minecraft.server.v1_8_R3.Material;
-
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +10,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.api.ItemAPI;
+import me.seemslegit.crime.api.PlayerCache;
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.managment.ItemManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 public class CopItems implements Listener {
 
@@ -38,6 +39,11 @@ public class CopItems implements Listener {
 		ItemStack shears = im.getItem("uncuff");
 		ItemStack tortch = im.getItem("cit");
 		ItemStack tnt = im.getItem("c4");
+		ItemStack book = im.getItem("book");
+		ItemStack helmet = new ItemAPI().material(Material.CHAINMAIL_HELMET).build();
+		ItemStack chestplate = new ItemAPI().material(Material.CHAINMAIL_CHESTPLATE).build();
+		ItemStack leggins = new ItemAPI().material(Material.CHAINMAIL_LEGGINGS).build();
+		ItemStack boots = new ItemAPI().material(Material.CHAINMAIL_BOOTS).build();
 
 		new PlayerCache(p).clearPlayer();
 		
@@ -46,6 +52,11 @@ public class CopItems implements Listener {
 		p.getInventory().setItem(2, shears);
 		p.getInventory().setItem(3, tortch);
 		p.getInventory().setItem(4, tnt);
+		p.getInventory().setItem(5, book);
+		p.getInventory().setHelmet(helmet);
+		p.getInventory().setChestplate(chestplate);
+		p.getInventory().setLeggings(leggins);
+		p.getInventory().setBoots(boots);
 		p.updateInventory();
 
 	}
@@ -83,6 +94,23 @@ public class CopItems implements Listener {
 			p.sendMessage(Messages.prefix+"§aYou successfully §cremoved all illegal items §aof §6"+t.getName());
 			Main.instance.getCopManager().removeIllegalItems(new User(t));
 			
+		}else if (name.equalsIgnoreCase("book")){
+			UserBase a = new User(p);
+			UserBase b = new User(t);
+			p.sendMessage("§e-------------------------------");
+			p.sendMessage("§eStats of Player "+t.getDisplayName());
+			if(a.isCop()){
+				p.sendMessage("§eMoney: "+b.getCoins());
+				p.sendMessage("§eCrime: §c"+b.getCrime());
+			}
+			if(b.hasCrime()){
+				p.sendMessage("§eHe is being §csearched§e !");
+			}else{
+				if(b.isInJail()){
+					p.sendMessage("§eJail-Time: "+b.getJailTime());
+					p.sendMessage("§3He is a §1Prisoner");
+				}else p.sendMessage("§eHe is a §cinnocent.");
+			}
 		}
 	}
 	/**
