@@ -12,7 +12,7 @@ public class FarmingManager {
 	}
 	
 	private void init() {
-		Bukkit.getPluginManager().registerEvents(new Drugs(), Main.instance);
+		Bukkit.getPluginManager().registerEvents(new Plants(), Main.instance);
 	}
 	
 	
