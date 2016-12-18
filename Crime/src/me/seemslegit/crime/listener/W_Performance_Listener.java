@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBurnEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,6 +19,15 @@ public class W_Performance_Listener implements Listener {
 	 */
 	@EventHandler
 	public void onBurn(BlockBurnEvent e) {
+		e.setCancelled(true);
+	}
+	
+	/**
+	 * 
+	 * @param e {@link BlockPhysicsEvent}
+	 */
+	@EventHandler
+	public void onBlockPhysik(BlockPhysicsEvent e) {
 		e.setCancelled(true);
 	}
 	
