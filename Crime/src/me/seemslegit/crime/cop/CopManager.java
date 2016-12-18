@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class CopManager {
 	
-	public ArrayList<String> iscuffedlist = new ArrayList<String>();
+	//public ArrayList<String> iscuffedlist = new ArrayList<String>();
 
 	public CopManager() {
 		init();
@@ -64,11 +64,7 @@ public class CopManager {
 		return true;
 	}
 	public boolean isCuffed(UserBase u){
-		if(iscuffedlist.contains(u.getUUID().toString())){
-			return true;
-		}else{
-			return false;
-		}
+		return u.getStats().getBoolean("cuffed", false);
 	}
 	
 	/**
@@ -79,8 +75,8 @@ public class CopManager {
 		if(u.isOnline() == true){
 			u.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*100000, 2));
 			if(!(isCuffed(u))){
-			iscuffedlist.add(u.getUUID().toString());
-			u.getStats().set("jail", true);
+				u.getStats().set("cuffed", true);
+				//u.getStats().set("jail", true);
 			}
 		}
 	}
@@ -91,11 +87,10 @@ public class CopManager {
 	 */
 	public void uncuff(UserBase u){
 		if(!isCuffed(u) == false){
-			iscuffedlist.remove(u.getUUID().toString());
+			u.getStats().set("cuffed", false);
 			u.resetCrime();
 			u.getStats().set("jail", false);
-			
-			
+			u.resetJailTime();
 		}
 	}
 	
@@ -115,6 +110,7 @@ public class CopManager {
 			
 			if(CrimeItem.isIllegal(item)) {
 				inv.setItem(i, null);
+				u.addCrime(5 * item.getAmount());
 			}
 			
 		}
