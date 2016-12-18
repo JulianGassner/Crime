@@ -1,6 +1,14 @@
 package me.seemslegit.crime.cop;
 
-import org.bukkit.Location;
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.api.ItemAPI;
+import me.seemslegit.crime.api.PlayerCache;
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.managment.ItemManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -10,15 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.api.ItemAPI;
-import me.seemslegit.crime.api.PlayerCache;
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.managment.ItemManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
 
 public class CopItems implements Listener {
 
@@ -113,23 +112,32 @@ public class CopItems implements Listener {
 			}
 		}
 	}
+	
 	/**
 	 * 
 	 * @param e {@link BlockPlaceEvent}
 	 */
-	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockPlace(BlockPlaceEvent e){
 		if(e.isCancelled()) return;
-		if(e.getBlock().getType().equals(Material.TNT)){
-			Location block = e.getBlock().getLocation();
-			block.getBlock().setTypeId(0);
-			e.getPlayer().getWorld().spawnEntity(block, EntityType.PRIMED_TNT);
-			UserBase u = new User(e.getPlayer());
+		e.setCancelled(true);
+		Player p = e.getPlayer();
+		ItemStack im = p.getItemInHand();
+		if(e.getBlockPlaced().getType().equals(Material.TNT) && im.getType() == Material.TNT){
+			if(im.getAmount() == 1) {
+				im.setType(Material.AIR);
+			}else{
+				im.setAmount(im.getAmount() - 1);
+			}
+			e.getBlock().setType(e.getBlock().getType());
+			e.getPlayer().getWorld().spawnEntity(e.getBlock().getLocation(), EntityType.PRIMED_TNT);
+			UserBase u = new User(p);
 			if(!u.isCop()){
 				u.addCrime(50);
 			}
 		}
+		p.setItemInHand(im);
+		p.updateInventory();
 	}
 
 }
