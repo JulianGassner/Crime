@@ -2,6 +2,7 @@ package me.seemslegit.crime.listener;
 
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class P_Crime_Listener implements Listener{
 		
 		if(u.hasCrime()) {
 			
-			
+			Main.instance.getJailManager().sendToJail(u);
 			
 		}else{
 			

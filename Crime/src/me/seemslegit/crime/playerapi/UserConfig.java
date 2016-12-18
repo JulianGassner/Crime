@@ -15,7 +15,7 @@ public class UserConfig extends Config{
 	 * @param cfg {@link String}
 	 */
 	public UserConfig(UserBase u, String cfg) {
-		super(new File("DB//" + u.getUUID().toString(), cfg + ".yml"));
+		super(new File("Crime//DB//" + u.getUUID().toString(), cfg + ".yml"));
 		this.u = u;
 		this.cfg = cfg;
 	}
