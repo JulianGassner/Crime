@@ -7,19 +7,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class P_Quit_Listener implements Listener{
+public class P_Quit_Listener implements Listener {
 
 	/**
 	 * 
-	 * @param e {@link PlayerQuitEvent}
+	 * @param e
+	 *            {@link PlayerQuitEvent}
 	 */
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		
+
 		Player p = e.getPlayer();
-		
+
 		e.setQuitMessage(Messages.p_join.replace("%1%", p.getDisplayName()));
-		
+
 	}
-	
+
 }

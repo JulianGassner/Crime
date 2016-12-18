@@ -23,11 +23,16 @@ public class CopCMD implements CommandExecutor {
 
 		Player p = (Player) cs;
 		if (p.hasPermission("crime.cop")) {
-			if (args[0].equalsIgnoreCase("switch")) {
-				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + CopManager.switchCop(new User(p))	+ "§a!");
+			if(args.length == 0){
+				p.sendMessage(Messages.error);
+			}
+			else if (args[0].equalsIgnoreCase("switch")) {
+				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + CopManager.switchCop(new User(p))
+						+ "§a!");
 				CopItems.giveCopItems(p);
 			} else if (args[0].equalsIgnoreCase("respawn")) {
-				p.sendMessage(Messages.prefix + "§aInitiated §cemergency §adeath. §6Please wait 3 minutes to let the poison appeal.");
+				p.sendMessage(Messages.prefix
+						+ "§aInitiated §cemergency §adeath. §6Please wait 3 minutes to let the poison appeal.");
 				String uuid = p.getUniqueId().toString();
 
 				if (delay.containsKey(uuid)) {
@@ -61,9 +66,12 @@ public class CopCMD implements CommandExecutor {
 			} else {
 				p.sendMessage(Messages.unknownCommand);
 			}
+		}else{
+			p.sendMessage("§cNope.");
 		}
-			return true;
-		
+
+		return true;
+
 	}
 
 }
