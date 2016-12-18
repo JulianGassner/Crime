@@ -2,12 +2,12 @@
 Minecraft Crime
 
 Todo:
-- Cop API (handcuffs, send to jail with sword while handcuffed, itemclear, uncuff item)
-- If TnT Explodes - save blocks to rebuild
-- Declare jail location and send alarm to cops if a jail guy leaves jail cuffed or if TnT explodes in jail
-- Shops that can be robbed
-- Drugs
-- Plots
-- MiningAPI and mine function
-- Bread Farm
-- Disallow crafting (only for special custom recipes)
+- Cop API (handcuffs, send to jail with sword while handcuffed, itemclear, uncuff item) - Done
+- If TnT Explodes - save blocks to rebuild - Todo !!!
+- Declare jail location and send alarm to cops if a jail guy leaves jail cuffed or if TnT explodes in jail - Partly done !!!!
+- Shops that can be robbed - Todo
+- Drugs - Partly done
+- Plots - Todo !!!
+- MiningAPI and mine function - Todo !!!
+- Bread Farm - Partyl done !!!
+- Disallow crafting (only for special custom recipes) - Done
