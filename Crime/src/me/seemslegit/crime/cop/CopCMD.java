@@ -10,49 +10,60 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CopCMD implements CommandExecutor{
+public class CopCMD implements CommandExecutor {
 
-	
-	private HashMap<String, Long> delay = new HashMap<String, Long>();
-	
+	private HashMap<String, Thread> delay = new HashMap<String, Thread>();
+
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
-		if(!(cs instanceof Player)){
+		if (!(cs instanceof Player)) {
 			cs.sendMessage("You have to be a player !");
 			return true;
 		}
+
 		Player p = (Player) cs;
-		if(args[0].equalsIgnoreCase("switch")){
-			p.sendMessage(Messages.prefix+"§aYou switched successfully to §e"+CopManager.switchCop(new User(p)) + "§a!");
-			CopItems.giveCopItems(p);
-		}if(args[0].equalsIgnoreCase("respawn")){
-			if(hasCooldown(p.getUniqueId().toString())) {
-				
-			}else{
-				
-				
-				
-				delay.put(p.getUniqueId().toString(), System.currentTimeMillis() + 60*3 * 1000);
+		if (p.hasPermission("crime.cop")) {
+			if (args[0].equalsIgnoreCase("switch")) {
+				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + CopManager.switchCop(new User(p))	+ "§a!");
+				CopItems.giveCopItems(p);
+			} else if (args[0].equalsIgnoreCase("respawn")) {
+				p.sendMessage(Messages.prefix + "§aInitiated §cemergency §adeath. §6Please wait 3 minutes to let the poison appeal.");
+				String uuid = p.getUniqueId().toString();
+
+				if (delay.containsKey(uuid)) {
+
+					Thread d = delay.get(uuid);
+					d.destroy();
+
+					delay.remove(uuid);
+
+				} else {
+					final Player t = p;
+					Thread d = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1000 * 60 * 3);
+								t.setHealth(0d);
+							} catch (InterruptedException e) {
+								t.sendMessage(Messages.error);
+							}
+							if (delay.containsValue(Thread.currentThread())) {
+								delay.remove(Thread.currentThread());
+							}
+						}
+					});
+					delay.put(uuid, d);
+					d.start();
+				}
+
+			} else {
+				p.sendMessage(Messages.unknownCommand);
 			}
 		}
-		return true;
-	}
-	
-	
-	private boolean hasCooldown(String uuid) {
-		
-		if(delay.containsKey(uuid)) {
-			
-			long t = delay.get(uuid);
-			
-			if(System.currentTimeMillis() > t) {
-				delay.remove(uuid);
-				return false;
-			}
 			return true;
-		}
 		
-		return false;
 	}
-	
 
 }
