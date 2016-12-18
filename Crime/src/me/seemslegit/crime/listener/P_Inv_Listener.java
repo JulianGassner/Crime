@@ -42,8 +42,6 @@ public class P_Inv_Listener implements Listener{
 		
 		User u = new User(p);
 		
-		if(u.isInJail()) return;
-		
 		Inventory inv = u.loadCachedInventory();
 		
 		if(inv == null) {

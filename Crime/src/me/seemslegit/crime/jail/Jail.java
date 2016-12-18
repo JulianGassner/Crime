@@ -2,6 +2,7 @@ package me.seemslegit.crime.jail;
 
 import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Location;
 
@@ -15,7 +16,7 @@ public final class Jail {
 	 */
 	public void initPlayer(UserBase u) {
 		
-		
+		Main.instance.getCopManager().removeIllegalItems(u);
 		
 	}
  	

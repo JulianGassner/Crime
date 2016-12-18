@@ -92,6 +92,7 @@ public abstract class UserBase {
 			cacheInventory(inv);
 		}else{
 			p.getInventory().setContents(inv.getContents());
+			p.updateInventory();
 		}
 	}
 	
