@@ -1,9 +1,12 @@
 package me.seemslegit.crime.cop;
 
+import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.mojang.authlib.yggdrasil.response.User;
 
@@ -61,6 +64,28 @@ public class CopManager {
 	 * @param u {@link User}
 	 */
 	public void uncuff(UserBase u){
+		
+	}
+	
+	/**
+	 * 
+	 * @param u {@link UserBase}
+	 */
+	public void removeIllegalItems(UserBase u) {
+		
+		Inventory inv = u.getInventory();
+		
+		for(int i = 0;i<inv.getSize();i++) {
+			
+			ItemStack item = inv.getItem(i);
+			
+			if(!CrimeItem.isIllegal(item)) {
+				inv.setItem(i, null);
+			}
+			
+		}
+		
+		u.setInventory(inv);
 		
 	}
 	
