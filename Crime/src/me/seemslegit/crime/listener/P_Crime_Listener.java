@@ -1,5 +1,6 @@
 package me.seemslegit.crime.listener;
 
+import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.plugin.Main;
@@ -8,11 +9,51 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class P_Crime_Listener implements Listener{
 
+	@EventHandler
+	public void onRespawn(PlayerRespawnEvent e) {
+		
+		Player p = e.getPlayer();
+		
+		User u = new User(p);
+		
+		if(u.hasCrime()) {
+			Main.instance.getJailManager().sendToJail(u);
+			return;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param e {@link PlayerDeathEvent}
+	 */
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPDeath(PlayerDeathEvent e) {
+		Player p = e.getEntity();
+		
+		e.setKeepInventory(true);
+		
+		for(int i = 0;i<p.getInventory().getSize();i++) {
+			ItemStack item = p.getInventory().getItem(i);
+			
+			if(CrimeItem.shouldDrop(item)) {
+				p.getWorld().dropItem(p.getLocation(), item);
+				p.getInventory().setItem(i, null);
+			}
+			
+		}
+		
+	}
+	
 	/**
 	 * 
 	 * @param e {@link EntityDeathEvent}
@@ -42,7 +83,7 @@ public class P_Crime_Listener implements Listener{
 		
 		if(u.hasCrime()) {
 			
-			Main.instance.getJailManager().sendToJail(u);
+			
 			
 		}else{
 			

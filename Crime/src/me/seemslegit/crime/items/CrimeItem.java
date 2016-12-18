@@ -8,6 +8,7 @@ public class CrimeItem {
 	private ItemStack i;
 	private boolean illegal = false;
 	private boolean onlycop = false;
+	private boolean drop = false;
 	
 	public CrimeItem(String name) {
 		this(name, null);
@@ -26,6 +27,24 @@ public class CrimeItem {
 	public CrimeItem setIllegal(boolean b) {
 		this.illegal = b;
 		return this;
+	}
+	
+	/**
+	 * 
+	 * @param b {@link Boolean}
+	 * @return {@link CrimeItem}
+	 */
+	public CrimeItem setDroppable(boolean b) {
+		this.drop = b;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean shouldDrop() {
+		return drop;
 	}
 	
 	/**
@@ -63,6 +82,7 @@ public class CrimeItem {
 		item.setString("crime", getName());
 		item.setBoolean("cillegal", isIllegal());
 		item.setBoolean("coc", isOnlyCop());
+		item.setBoolean("cdrop", shouldDrop());
 		return item.getItem();
 	}
 	
@@ -74,6 +94,17 @@ public class CrimeItem {
 	public static boolean isOnlyCop(ItemStack i) {
 		NBTItem item = new NBTItem(i);
 		if(item.hasKey("coc")) return item.getBoolean("coc");
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param i {@link ItemStack}
+	 * @return {@link Boolean}
+	 */
+	public static boolean shouldDrop(ItemStack i) {
+		NBTItem item = new NBTItem(i);
+		if(item.hasKey("cdrop")) return item.getBoolean("cdrop");
 		return false;
 	}
 	
