@@ -1,75 +1,65 @@
 package me.seemslegit.crime.cop;
 
-import me.seemslegit.crime.api.ItemAPI;
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.managment.ItemManager;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.plugin.Main;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+public class CopItems implements Listener {
 
-public class CopItems implements Listener{
-	
-	ItemStack copsword = new ItemAPI().material(Material.IRON_SWORD).displayName("§cSword of Law").build();
-	ItemStack handcuffs = new ItemAPI().material(Material.LEASH).displayName("§cHandcuffs").build();
-	ItemStack shears = new ItemAPI().material(Material.SHEARS).displayName("§aUncuff").build();
-	ItemStack tortch = new ItemAPI().material(Material.REDSTONE_TORCH_ON).displayName("§cClear illlegal items").build();
-	ItemStack tnt = new ItemAPI().material(Material.TNT).displayName("§cC4").build();
-	//todo - Weapons
-	
 	/**
 	 * 
-	 * @param p {@link Player}
+	 * @param p
+	 *            {@link Player}
 	 */
-	
-	public static void giveCopItems(Player p){
-		
-		ItemStack copsword = new ItemAPI().material(Material.IRON_SWORD).displayName("§cSword of Law").build();
-		ItemStack handcuffs = new ItemAPI().material(Material.LEASH).displayName("§cHandcuffs").build();
-		ItemStack shears = new ItemAPI().material(Material.SHEARS).displayName("§aUncuff").build();
-		ItemStack tortch = new ItemAPI().material(Material.REDSTONE_TORCH_ON).displayName("§cClear illlegal items").build();
-		ItemStack tnt = new ItemAPI().material(Material.TNT).displayName("§cC4").build();
-		
+	public static void giveCopItems(Player p) {
+
+		ItemManager im = Main.instance.getItemManager();
+
+		ItemStack copsword = im.getItem("copsword");
+		ItemStack handcuffs = im.getItem("handcuffs");
+		ItemStack shears = im.getItem("uncuff");
+		ItemStack tortch = im.getItem("cit");
+		ItemStack tnt = im.getItem("c4");
+
 		p.getInventory().clear();
 		p.getInventory().setItem(0, copsword);
 		p.getInventory().setItem(1, handcuffs);
 		p.getInventory().setItem(2, shears);
 		p.getInventory().setItem(3, tortch);
 		p.getInventory().setItem(4, tnt);
-		
+
 	}
+
+	/**
+	 * 
+	 * @param e {@link PlayerInteractEntityEvent}
+	 */
 	@EventHandler
-<<<<<<< HEAD
-	public void onInteract(PlayerInteractEvent e){
-		if(e instanceof Player){
-			Player p = e.getPlayer();
-			if(p.getItemInHand().getType().equals(handcuffs.getType())){
-				CopManager.cuff(new User(p));
-				
-			}else if(p.getItemInHand().getType().equals(copsword.getType())){
-			//
-			}
-=======
-	public void onInteract(PlayerInteractEntityEvent e){
-		if(!(e.getRightClicked() instanceof Player)) return;
-		
+	public void onInteract(PlayerInteractEntityEvent e) {
+		if (!(e.getRightClicked() instanceof Player))
+			return;
+
 		Player t = (Player) e.getRightClicked();
 		Player p = e.getPlayer();
-		
-		if(p.getItemInHand().getType().equals(handcuffs.getType())){
+		ItemStack inhand = p.getItemInHand();
+		String name = CrimeItem.getCrimeName(inhand);
+		if (name == null)
+			return;
+
+		if (name.equalsIgnoreCase("handcuffs")) {
 			Main.instance.getCopManager().cuff(new User(t));
-		}else if(p.getItemInHand().getType().equals(copsword.getType())){
-			
-		}else if(p.getItemInHand().getType() == shears.getType()) {
+		} else if (name.equalsIgnoreCase("copsword")) {
+
+		} else if (name.equalsIgnoreCase("uncuff")) {
 			Main.instance.getCopManager().uncuff(new User(t));
->>>>>>> origin/master
 		}
 	}
-	
-	
 
 }
