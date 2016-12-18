@@ -1,9 +1,9 @@
 package me.seemslegit.crime.cop;
 
+import java.util.HashMap;
+
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.playerapi.User;
-
-import java.util.HashMap;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -46,7 +46,6 @@ public class CopCMD implements CommandExecutor {
 					final Player t = p;
 					Thread d = new Thread(new Runnable() {
 
-						@Override
 						public void run() {
 							try {
 								Thread.sleep(1000 * 60 * 3);

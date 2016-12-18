@@ -1,12 +1,11 @@
 package me.seemslegit.crime.cop;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
-import com.mojang.authlib.yggdrasil.response.User;
-
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
+
+import org.bukkit.Bukkit;
+
+import com.mojang.authlib.yggdrasil.response.User;
 
 public class CopManager {
 
