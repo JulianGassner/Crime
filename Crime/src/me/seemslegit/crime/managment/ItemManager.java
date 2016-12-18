@@ -18,12 +18,12 @@ public class ItemManager {
 	public void init() {
 		Bukkit.getPluginManager().registerEvents(new ItemFunctions(), Main.instance);
 		
-		CrimeItem drugs = new CrimeItem("drugs", new ItemAPI().material(Material.SUGAR).displayName("§cDrugs").build());
+		CrimeItem drugs = new CrimeItem("drugs", new ItemAPI().material(Material.SUGAR).displayName("§cWeed").lore("§cDrugs").build());
 		drugs.setUnbreakable(false);
 		drugs.setIllegal(true);
 		drugs.register();
 		
-		CrimeItem rawdrugs = new CrimeItem("rawdrugs", new ItemAPI().material(Material.SUGAR_CANE).displayName("§cRaw Drugs").build());
+		CrimeItem rawdrugs = new CrimeItem("rawdrugs", new ItemAPI().material(Material.SUGAR_CANE).displayName("§cRaw Weed").lore("§cDrugs").build());
 		rawdrugs.setUnbreakable(false);
 		rawdrugs.setIllegal(true);
 		rawdrugs.register();

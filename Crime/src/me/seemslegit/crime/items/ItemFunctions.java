@@ -1,10 +1,16 @@
 package me.seemslegit.crime.items;
 
+import me.seemslegit.crime.managment.ItemManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -12,15 +18,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import me.seemslegit.crime.managment.ItemManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
-
 public class ItemFunctions implements Listener{
 
 	//Drugs
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onFurnaceInteract(PlayerInteractEvent e){
 		Player p = e.getPlayer();
 		
@@ -29,6 +30,7 @@ public class ItemFunctions implements Listener{
 		Block b = e.getClickedBlock();
 		
 		if(b.getType() != Material.FURNACE && b.getType() != Material.BURNING_FURNACE) return;
+		e.setCancelled(true);
 		
 		ItemStack hand = p.getItemInHand();
 		
@@ -76,7 +78,7 @@ public class ItemFunctions implements Listener{
 		
 		if(name.equals("drugs")){
 			p.playSound(p.getLocation(), Sound.GHAST_SCREAM, 1, 1);
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 3, 5), true);
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5*20, 5), true);
 			UserBase b = new User(p);
 			b.addCrime(101);
 			if(hand.getAmount() == 1) {

@@ -77,7 +77,7 @@ public class CopManager {
 			u.getPlayer().sendMessage("§8> §cYou've been cuffed!");
 			if(!(isCuffed(u))){
 				u.getStats().set("cuffed", true);
-				//u.getStats().set("jail", true);
+				u.getStats().set("jail", true);
 			}
 		}
 	}

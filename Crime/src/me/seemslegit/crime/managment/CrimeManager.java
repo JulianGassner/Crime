@@ -36,8 +36,8 @@ public class CrimeManager {
 	public void setCrime(UserBase u, long crime) {
 		if(crime < 0) crime = 0;
 		if(crime > MAX_CRIME) crime = MAX_CRIME;
-		
-		if(crime > 0) Main.instance.getCopManager().switchCop(u);
+
+		if(crime > 0 && u.isCop()) Main.instance.getCopManager().switchCop(u);
 		u.getStats().set("crime", System.currentTimeMillis() + (crime * 1000));
 	}
 	
