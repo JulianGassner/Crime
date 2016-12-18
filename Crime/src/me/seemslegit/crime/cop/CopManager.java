@@ -1,6 +1,7 @@
 package me.seemslegit.crime.cop;
 
 import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.listener.P_Cop_Listener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
@@ -20,6 +21,8 @@ public class CopManager {
 	private void init() {
 		Main.registerCommandonBukkit("cop");
 		Bukkit.getPluginCommand("cop").setExecutor(new CopCMD());
+		
+		Bukkit.getPluginManager().registerEvents(new P_Cop_Listener(), Main.instance);
 	}
 	
 	/**
