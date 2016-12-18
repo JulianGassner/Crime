@@ -1,22 +1,24 @@
 package me.seemslegit.crime.items;
 
-import me.seemslegit.crime.managment.ItemManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import me.seemslegit.crime.managment.ItemManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 public class ItemFunctions implements Listener{
 
@@ -91,6 +93,21 @@ public class ItemFunctions implements Listener{
 			p.updateInventory();
 		}
 		
+		
+		
+	}
+	
+	@EventHandler
+	public void onCraft(PrepareItemCraftEvent e){
+		e.getInventory().setResult(new ItemStack(Material.AIR));
+		 for(HumanEntity he:e.getViewers()) {
+             if(he instanceof Player) {
+            	 he.sendMessage("§cYou cannot craft this!");
+            	 he.closeInventory();
+            	 
+             }
+                 
+        }
 	}
 	
 }
