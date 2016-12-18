@@ -5,14 +5,20 @@ import me.seemslegit.crime.listener.P_Cop_Listener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-import com.mojang.authlib.yggdrasil.response.User;
+
 
 public class CopManager {
+	
+	public ArrayList<String> iscuffedlist = new ArrayList<String>();
 
 	public CopManager() {
 		init();
@@ -57,13 +63,26 @@ public class CopManager {
 		u.getStats().set("cop", b);
 		return true;
 	}
+	public boolean isCuffed(UserBase u){
+		if(iscuffedlist.contains(u.getUUID().toString())){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * 
 	 * @param u {@link User}
 	 */
 	public void cuff(UserBase u){
-		
+		if(u.isOnline() == true){
+			u.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*100000, 2));
+			if(!(isCuffed(u))){
+			iscuffedlist.add(u.getUUID().toString());
+			u.getStats().set("jail", true);
+			}
+		}
 	}
 	
 	/**
@@ -71,7 +90,13 @@ public class CopManager {
 	 * @param u {@link User}
 	 */
 	public void uncuff(UserBase u){
-		
+		if(!isCuffed(u) == false){
+			iscuffedlist.remove(u.getUUID().toString());
+			u.resetCrime();
+			u.getStats().set("jail", false);
+			
+			
+		}
 	}
 	
 	/**
