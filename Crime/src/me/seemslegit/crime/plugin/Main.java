@@ -7,6 +7,7 @@ import me.seemslegit.crime.CrimeThread;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.commands.CMD_config;
 import me.seemslegit.crime.cop.CopManager;
+import me.seemslegit.crime.farming.FarmingManager;
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.managment.ErrorManager;
 import me.seemslegit.crime.managment.ItemManager;
@@ -36,6 +37,7 @@ public class Main extends JavaPlugin{
 	private JailManager mng_jail;
 	private ItemManager mng_item;
 	private CopManager mng_cop;
+	private FarmingManager mng_farming;
 	private Thread crimethread;
 	private boolean started = false;
 	
@@ -61,6 +63,7 @@ public class Main extends JavaPlugin{
 		mng_jail = new JailManager();
 		mng_item = new ItemManager();
 		mng_cop = new CopManager();
+		mng_farming = new FarmingManager();
 		
 		mng_item.init();
 		
@@ -99,6 +102,14 @@ public class Main extends JavaPlugin{
 	 */
 	public ErrorManager getErrorManager() {
 		return mng_error;
+	}
+	
+	/**
+	 * 
+	 * @return {@link FarmingManager}
+	 */
+	public FarmingManager getFarmingManager() {
+		return mng_farming;
 	}
 	
 	/**
