@@ -33,7 +33,11 @@ public class CopCMD implements CommandExecutor {
 						+ "§a!");
 				
 				if(u.isCop()) {
+					//WIRD COP
 					CopItems.giveCopItems(p);
+				}else{
+					//WIRD NORMAL 
+					
 				}
 			} else if (args[0].equalsIgnoreCase("respawn")) {
 				p.sendMessage(Messages.prefix
