@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,14 +23,18 @@ public class CopCMD implements CommandExecutor {
 		}
 
 		Player p = (Player) cs;
+		User u = new User(p);
 		if (p.hasPermission("crime.cop")) {
 			if(args.length == 0){
 				p.sendMessage(Messages.error);
 			}
 			else if (args[0].equalsIgnoreCase("switch")) {
-				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + CopManager.switchCop(new User(p))
+				p.sendMessage(Messages.prefix + "§aYou switched successfully to §e" + Main.instance.getCopManager().switchCop(u)
 						+ "§a!");
-				CopItems.giveCopItems(p);
+				
+				if(u.isCop()) {
+					CopItems.giveCopItems(p);
+				}
 			} else if (args[0].equalsIgnoreCase("respawn")) {
 				p.sendMessage(Messages.prefix
 						+ "§aInitiated §cemergency §adeath. §6Please wait 3 minutes to let the poison appeal.");

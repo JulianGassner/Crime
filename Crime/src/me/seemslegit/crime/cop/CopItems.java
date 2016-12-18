@@ -1,14 +1,15 @@
 package me.seemslegit.crime.cop;
 
+import me.seemslegit.crime.api.ItemAPI;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-
-import me.seemslegit.crime.api.ItemAPI;
-import me.seemslegit.crime.playerapi.User;
 
 
 public class CopItems implements Listener{
@@ -42,14 +43,18 @@ public class CopItems implements Listener{
 		
 	}
 	@EventHandler
-	public void onInteract(PlayerInteractEvent e){
-		if(e instanceof Player){
-			Player p = e.getPlayer();
-			if(p.getItemInHand().getType().equals(handcuffs.getType())){
-				CopManager.cuff(new User(p));
-				
-			}else if(p.getItemInHand().getType().equals(copsword.getType())){
-			}
+	public void onInteract(PlayerInteractEntityEvent e){
+		if(!(e.getRightClicked() instanceof Player)) return;
+		
+		Player t = (Player) e.getRightClicked();
+		Player p = e.getPlayer();
+		
+		if(p.getItemInHand().getType().equals(handcuffs.getType())){
+			Main.instance.getCopManager().cuff(new User(t));
+		}else if(p.getItemInHand().getType().equals(copsword.getType())){
+			
+		}else if(p.getItemInHand().getType() == shears.getType()) {
+			Main.instance.getCopManager().uncuff(new User(t));
 		}
 	}
 	

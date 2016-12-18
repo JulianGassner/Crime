@@ -23,7 +23,7 @@ public class CopManager {
 	 * @param u {@link UserBase}
 	 * @return {@link Boolean}
 	 */
-	public static boolean isCop(UserBase u) {
+	public boolean isCop(UserBase u) {
 		return u.getStats().getBoolean("cop", false);
 	}
 	
@@ -32,7 +32,7 @@ public class CopManager {
 	 * @param u {@link UserBase}
 	 * @return {@link String}
 	 */
-	public static String switchCop(UserBase u){
+	public String switchCop(UserBase u){
 		boolean b = isCop(u);
 		if(!b) {
 			if(u.hasCrime()) {
@@ -47,16 +47,21 @@ public class CopManager {
 		u.getStats().set("cop", b);
 		return "successful";
 	}
+	
 	/**
 	 * 
 	 * @param u {@link User}
 	 */
-	
-	 
-	public static void cuff(UserBase u){
+	public void cuff(UserBase u){
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param u {@link User}
+	 */
+	public void uncuff(UserBase u){
+		
+	}
 	
 }
