@@ -50,7 +50,7 @@ public final class Jail {
 	
 	/**
 	 * 
-	 * @return {@link JailManager}
+	 * @return {@link Location}
 	 */
 	public Location getLocation() {
 		return jm.getLocation();

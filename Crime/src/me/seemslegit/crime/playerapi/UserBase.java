@@ -2,10 +2,13 @@ package me.seemslegit.crime.playerapi;
 
 import java.util.UUID;
 
+import me.seemslegit.crime.api.CachedInventory;
 import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 public abstract class UserBase {
 
@@ -17,6 +20,79 @@ public abstract class UserBase {
 	 */
 	UserBase(UUID u) {
 		this.u = u;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean isInJail() {
+		return Main.instance.getJailManager().isInJail(this);
+	}
+	
+	/**
+	 * 
+	 * @return {@link Player}
+	 */
+	public Player getPlayer() {
+		return Bukkit.getPlayer(getUUID());
+	}
+	
+	/**
+	 * 
+	 * @return {@link Inventory}
+	 */
+	public Inventory loadCachedInventory() {
+		return new CachedInventory(getStats()).loadInventory("inv");
+	}
+	
+	/**
+	 * 
+	 * @return {@link Inventory}
+	 */
+	public Inventory getInventory() {
+		Player p = getPlayer();
+		if(p == null) {
+			return loadCachedInventory();
+		}else{
+			/**Inventory inv_p = p.getInventory();
+			
+			Inventory inv = Bukkit.createInventory(null, inv_p.getSize());
+			
+			inv.setContents(inv_p.getContents());
+			
+			return inv;**/
+			return p.getInventory();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param inv {@link Inventory}
+	 */
+	public void cacheInventory(Inventory inv) {
+		new CachedInventory(getStats()).saveInventory(inv, "inv");
+	}
+	
+	/**
+	 * 
+	 * @param inv {@link Inventory}
+	 */
+	public void setInventory(Inventory inv) {
+		Player p = getPlayer();
+		if(p == null) {
+			cacheInventory(inv);
+		}else{
+			p.getInventory().setContents(inv.getContents());
+		}
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean isOnline() {
+		return getPlayer() != null;
 	}
 	
 	/**
