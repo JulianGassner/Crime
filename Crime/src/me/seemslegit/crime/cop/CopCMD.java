@@ -32,16 +32,16 @@ public class CopCMD implements CommandExecutor {
 				boolean changed = Main.instance.getCopManager().switchCop(u);
 				
 				if(!changed) {
-					p.sendMessage(Messages.prefix + " §cYou can switch right now. You got crime.");
+					p.sendMessage(Messages.prefix + " §cYou can't switch right now. You got crime.");
 					return true;
 				}
 				
 				if(u.isCop()) {
 					//WIRD COP
-					p.sendMessage("*du bist jz cop*");
+					p.sendMessage(Messages.prefix+"§6You switched successfully to §1cop.");
 				}else{
 					//WIRD NORMAL 
-					p.sendMessage("*du bist jz wd normal*");
+					p.sendMessage(Messages.prefix+"§6You switched successfully to §crobber.");
 				}
 			} else if (args[0].equalsIgnoreCase("respawn")) {
 				p.sendMessage(Messages.prefix
