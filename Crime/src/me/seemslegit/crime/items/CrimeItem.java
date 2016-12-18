@@ -2,6 +2,8 @@ package me.seemslegit.crime.items;
 
 import org.bukkit.inventory.ItemStack;
 
+import me.seemslegit.crime.plugin.Main;
+
 public class CrimeItem {
 
 	private String name;
@@ -17,6 +19,17 @@ public class CrimeItem {
 	public CrimeItem(String name, ItemStack i) {
 		this.name = name;
 		this.i = i;
+	}
+	
+	/**
+	 * 
+	 * @return {@link CrimeItem}
+	 */
+	public CrimeItem register() {
+		if(i != null && !Main.instance.getItemManager().items.contains(this)) {
+			Main.instance.getItemManager().items.add(this);
+		}
+		return this;
 	}
 	
 	/**
