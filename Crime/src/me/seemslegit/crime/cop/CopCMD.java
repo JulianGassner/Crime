@@ -22,7 +22,7 @@ public class CopCMD implements CommandExecutor{
 		}if(args[0].equalsIgnoreCase("respawn")){
 			
 		}
-		return false;
+		return true;
 	}
 	
 	
