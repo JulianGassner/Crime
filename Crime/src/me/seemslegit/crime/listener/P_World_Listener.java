@@ -22,7 +22,7 @@ public class P_World_Listener implements Listener{
 		
 		ArrayList<Material> allow = new ArrayList<Material>();
 		
-		allow.add(Material.WHEAT);
+		allow.add(Material.CROPS);
 		allow.add(Material.SUGAR_CANE_BLOCK);
 		
 		return allow;
@@ -48,9 +48,9 @@ public class P_World_Listener implements Listener{
 		if(e.isCancelled()) return;
 		if(e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		if(allowBreak().contains(e.getBlock().getType())) {
-			if(e.getBlock().getType() == Material.WHEAT) {
+			if(e.getBlock().getType() == Material.CROPS) {
 				e.setCancelled(true);
-				e.getBlock().setType(Material.SEEDS);
+				e.getBlock().setType(Material.CROPS);
 				e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), Main.instance.getItemManager().getItem("wheat"));
 			}else if(e.getBlock().getType() == Material.SUGAR_CANE_BLOCK) {
 				

@@ -11,7 +11,7 @@ public class Plants implements Listener{
 	@EventHandler
 	public void onGrow(BlockGrowEvent e) {
 		int size = 1;
-		if (e.getBlock().getType().equals(Material.SUGAR_CANE_BLOCK)) {
+		if (e.getNewState().getType().equals(Material.SUGAR_CANE_BLOCK)) {
 			Location loc = e.getBlock().getLocation();
 			loc.add(0, -1, 0);
 			while (loc.getBlock().getType() == e.getNewState().getType() && size < 3) {
@@ -19,7 +19,7 @@ public class Plants implements Listener{
 				loc.add(0, -1, 0);
 			}
 			if(size > 2) e.setCancelled(true);
-		}else if(e.getBlock().getType() == Material.SEEDS) {
+		}else if(e.getNewState().getType() == Material.CROPS) {
 			
 		}else e.setCancelled(true);
 
