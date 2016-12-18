@@ -43,6 +43,7 @@ public class P_World_Listener implements Listener{
 	 * 
 	 * @param e {@link BlockBreakEvent}
 	 */
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent e) {
 		if(e.isCancelled()) return;
@@ -50,6 +51,7 @@ public class P_World_Listener implements Listener{
 		if(allowBreak().contains(e.getBlock().getType())) {
 			if(e.getBlock().getType() == Material.CROPS) {
 				e.setCancelled(true);
+				if(e.getBlock().getData() != 7) return;
 				e.getBlock().setType(Material.CROPS);
 				e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), Main.instance.getItemManager().getItem("wheat"));
 			}else if(e.getBlock().getType() == Material.SUGAR_CANE_BLOCK) {
