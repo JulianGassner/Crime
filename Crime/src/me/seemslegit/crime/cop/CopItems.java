@@ -63,6 +63,10 @@ public class CopItems implements Listener {
 		if (name.equalsIgnoreCase("handcuffs")) {
 			Main.instance.getCopManager().cuff(new User(t));
 		} else if (name.equalsIgnoreCase("copsword")) {
+			if(Main.instance.getCopManager().isCuffed(new User(t)) == true){
+				UserBase b = new User(t);
+				Main.instance.getJailManager().sendToJail(b);
+			}
 
 		} else if (name.equalsIgnoreCase("uncuff")) {
 			Main.instance.getCopManager().uncuff(new User(t));
