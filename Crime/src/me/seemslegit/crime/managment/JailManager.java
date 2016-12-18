@@ -66,6 +66,10 @@ public class JailManager {
 	 * @param u {@link UserBase}
 	 */
 	public void sendToJail(UserBase u) {
+		if(u.getJailTime() == -1 && !u.hasCrime()) {
+			Main.instance.getCopManager().uncuff(u);
+			return;
+		}
 		u.getStats().set("jail", true);
 		getJail().initPlayer(u);
 	}
@@ -75,8 +79,8 @@ public class JailManager {
 	 * @param u {@link UserBase}
 	 */
 	public void removeFromJail(UserBase u) {
-		u.getStats().set("jail", false);
-		u.resetJailTime();
+		Main.instance.getCopManager().uncuff(u);
+		u.teleport(Main.instance.getSpawn());
 	}
 	
 	

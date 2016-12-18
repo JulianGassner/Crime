@@ -7,6 +7,7 @@ import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -20,6 +21,20 @@ public abstract class UserBase {
 	 */
 	UserBase(UUID u) {
 		this.u = u;
+	}
+	
+	/**
+	 * 
+	 * @param loc {@link Location}
+	 */
+	public void teleport(Location loc) {
+		if(loc == null) return;
+		Player p = getPlayer();
+		if(p == null) {
+			
+		}else{
+			p.teleport(loc);
+		}
 	}
 	
 	/**

@@ -87,6 +87,10 @@ public class CopItems implements Listener {
 		} else if (name.equalsIgnoreCase("copsword")) {
 			if(Main.instance.getCopManager().isCuffed(new User(t)) == true){
 				UserBase b = new User(t);
+				if(!b.hasCrime()) {
+					p.sendMessage(Messages.prefix + "§cThis player has no crime. You cant lock him.");
+					return;
+				}
 				Main.instance.getJailManager().sendToJail(b);
 			}
 
