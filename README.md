@@ -11,7 +11,3 @@ Todo:
 - MiningAPI and mine function - Todo !!!
 - Bread Farm - Partyl done !!!
 - Disallow crafting (only for special custom recipes) - Done
-- Add scoreboard
-- Add Thread (remove JailTime per tick)
-- Add Zombies (if offline with crime)
-- Add offline teleport
