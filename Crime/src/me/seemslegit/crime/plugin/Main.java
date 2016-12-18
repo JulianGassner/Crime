@@ -1,5 +1,7 @@
 package me.seemslegit.crime.plugin;
 
+import java.lang.reflect.Constructor;
+
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.managment.ErrorManager;
 import me.seemslegit.crime.managment.ItemManager;
@@ -8,6 +10,9 @@ import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.managment.PerformanceManager;
 import me.seemslegit.crime.managment.PlayerManager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
@@ -93,6 +98,23 @@ public class Main extends JavaPlugin{
 	 */
 	public ItemManager getItemManager() {
 		return mng_item;
+	}
+	
+	/**
+	 * 
+	 * @param s {@link String}
+	 */
+	public static void registerCommandonBukkit(String s) {
+		if(Bukkit.getPluginCommand(s) != null) return;
+		try{
+			Class<?> c = PluginCommand.class;
+			Constructor<?> constructor = c.getDeclaredConstructor(String.class,org.bukkit.plugin.Plugin.class);
+			constructor.setAccessible(true);
+			PluginCommand pl = (PluginCommand)constructor.newInstance(s,Main.instance);
+			((CraftServer) Bukkit.getServer()).getCommandMap().register("Crime", pl);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 }
