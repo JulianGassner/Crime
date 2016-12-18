@@ -57,6 +57,10 @@ public class P_Inv_Listener implements Listener{
 		
 	}
 	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 */
 	private void giveDefaultInv(Player p) {
 		new PlayerCache(p).clearPlayer();
 		
