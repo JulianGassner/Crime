@@ -2,6 +2,7 @@ package me.seemslegit.crime.plugin;
 
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.managment.ErrorManager;
+import me.seemslegit.crime.managment.ItemManager;
 import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.managment.PerformanceManager;
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin{
 	private PerformanceManager mng_performance;
 	private CrimeManager mng_crime;
 	private JailManager mng_jail;
+	private ItemManager mng_item;
 	
 	private void init() {
 		mng_error = new ErrorManager();
@@ -28,6 +30,7 @@ public class Main extends JavaPlugin{
 		mng_performance = new PerformanceManager();
 		mng_crime = new CrimeManager();
 		mng_jail = new JailManager();
+		mng_item = new ItemManager();
 	}
 	
 	public void onEnable() {
@@ -82,6 +85,14 @@ public class Main extends JavaPlugin{
 	 */
 	public JailManager getJailManager() {
 		return mng_jail;
+	}
+	
+	/**
+	 * 
+	 * @return {@link ItemManager}
+	 */
+	public ItemManager getItemManager() {
+		return mng_item;
 	}
 	
 }
