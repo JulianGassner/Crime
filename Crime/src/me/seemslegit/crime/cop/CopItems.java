@@ -66,17 +66,21 @@ public class CopItems implements Listener {
 	 */
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
-		if (!(e.getRightClicked() instanceof Player))
-			return;
+		if (!(e.getRightClicked() instanceof Player)) return;
 
 		Player t = (Player) e.getRightClicked();
 		Player p = e.getPlayer();
 		ItemStack inhand = p.getItemInHand();
+		if(inhand == null || inhand.getType() == Material.AIR) return;
 		String name = CrimeItem.getCrimeName(inhand);
 		if (name == null)
 			return;
 
 		if (name.equalsIgnoreCase("handcuffs")) {
+			if(new User(t).isCop()) {
+				p.sendMessage(Messages.prefix + "§cYou cant cuff another cop!");
+				return;
+			}
 			p.sendMessage(Messages.prefix+"§aYou successfully cuffed §6"+t.getName());
 			Main.instance.getCopManager().cuff(new User(t));
 		} else if (name.equalsIgnoreCase("copsword")) {
@@ -90,6 +94,10 @@ public class CopItems implements Listener {
 			Main.instance.getCopManager().uncuff(new User(t));
 			
 		}else if (name.equalsIgnoreCase("cit")){
+			if(new User(t).isCop()) {
+				p.sendMessage(Messages.prefix + "§cYou cant clear a inventory of another cop!");
+				return;
+			}
 			p.sendMessage(Messages.prefix+"§aYou successfully §cremoved all illegal items §aof §6"+t.getName());
 			Main.instance.getCopManager().removeIllegalItems(new User(t));
 			

@@ -44,6 +44,7 @@ public class ItemManager {
 		CrimeItem cit = new CrimeItem("cit", new ItemAPI().material(Material.REDSTONE_TORCH_ON)
 			.displayName("§cClear illlegal items").lore("§3Cop Tool").build());
 		cit.setIllegal(true);
+		cit.setOnlyCop(true);
 		cit.register();
 		
 		CrimeItem book = new CrimeItem("book", new ItemAPI().lore("§7Tool").material(Material.BOOK).displayName("§aCitizen Index").build());

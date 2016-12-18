@@ -115,7 +115,7 @@ public class CopManager {
 			
 			if(CrimeItem.isIllegal(item)) {
 				inv.setItem(i, null);
-				u.addCrime(5 * item.getAmount());
+				if(!u.isCop()) u.addCrime(5 * item.getAmount());
 			}
 			
 		}
