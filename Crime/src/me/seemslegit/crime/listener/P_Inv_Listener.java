@@ -1,6 +1,8 @@
 package me.seemslegit.crime.listener;
 
+import me.seemslegit.crime.api.PlayerCache;
 import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,7 +56,11 @@ public class P_Inv_Listener implements Listener{
 	}
 	
 	private void giveDefaultInv(Player p) {
+		new PlayerCache(p).clearPlayer();
 		
+		p.getInventory().addItem(Main.instance.getItemManager().getItem("bread"));
+		
+		p.updateInventory();
 	}
 	
 }
