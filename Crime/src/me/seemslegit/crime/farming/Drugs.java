@@ -16,7 +16,7 @@ public class Drugs implements Listener{
 		while(loc.getBlock().getType() == e.getNewState().getType()) {
 			size ++;
 			loc.add(0, -1, 0);
-			Bukkit.broadcastMessage(""+size);
+			Bukkit.broadcastMessage(""+size + " - " + e.getNewState().getType().toString());
 		}
 		
 		
