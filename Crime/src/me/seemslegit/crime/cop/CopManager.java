@@ -33,22 +33,25 @@ public class CopManager {
 	/**
 	 * 
 	 * @param u {@link UserBase}
-	 * @return {@link String}
+	 * @return {@link Boolean}
 	 */
-	public String switchCop(UserBase u){
+	public boolean switchCop(UserBase u){
 		boolean b = isCop(u);
 		if(!b) {
-			if(u.hasCrime()) {
-				return "not successful";
+			if(u.hasCrime() || !u.isOnline()) {
+				return false;
 			}else{
+				u.cacheInventory(u.getInventory());
+				CopItems.giveCopItems(u);
 				b = true;
 			}
 		}else{
+			u.setInventory(u.loadCachedInventory());
 			b = false;
 		}
 		
 		u.getStats().set("cop", b);
-		return "successful";
+		return true;
 	}
 	
 	/**

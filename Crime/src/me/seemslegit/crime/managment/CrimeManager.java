@@ -1,7 +1,10 @@
 package me.seemslegit.crime.managment;
 
+import me.seemslegit.crime.listener.P_Crime_Listener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
+
+import org.bukkit.Bukkit;
 
 public class CrimeManager {
 
@@ -10,7 +13,7 @@ public class CrimeManager {
 	public static final long CRIME_PER_ROB = 480;
 	
 	private void init() {
-		
+		Bukkit.getPluginManager().registerEvents(new P_Crime_Listener(), Main.instance);
 	}
 	
 	public CrimeManager() {
