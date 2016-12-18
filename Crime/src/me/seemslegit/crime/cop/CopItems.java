@@ -1,14 +1,5 @@
 package me.seemslegit.crime.cop;
 
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.api.ItemAPI;
-import me.seemslegit.crime.api.PlayerCache;
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.managment.ItemManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -19,6 +10,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.api.ItemAPI;
+import me.seemslegit.crime.api.PlayerCache;
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.managment.ItemManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 public class CopItems implements Listener {
 
@@ -153,5 +153,9 @@ public class CopItems implements Listener {
 			p.updateInventory();
 		}
 	}
+	
+	
+	
+	
 
 }
