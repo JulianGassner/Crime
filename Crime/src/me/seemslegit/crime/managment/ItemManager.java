@@ -37,6 +37,7 @@ public class ItemManager {
 		CrimeItem bread = new CrimeItem("bread", new ItemAPI()
 				.material(Material.BREAD).displayName("§eBread").lore("§7Food")
 				.amout(2).build());
+		bread.setUnbreakable(false);
 		bread.register();
 
 		CrimeItem copsword = new CrimeItem("copsword", new ItemAPI()
@@ -49,6 +50,7 @@ public class ItemManager {
 				.material(Material.LEASH).lore("§3Cop Tool")
 				.displayName("§cHandcuffs").build());
 		handcuffs.setIllegal(true);
+		handcuffs.setUnbreakable(false);
 		handcuffs.register();
 
 		CrimeItem uncuff = new CrimeItem("uncuff", new ItemAPI()
@@ -60,6 +62,7 @@ public class ItemManager {
 		CrimeItem c4 = new CrimeItem("c4", new ItemAPI().material(Material.TNT)
 				.displayName("§cC4").lore("§cExplosive").build());
 		c4.setIllegal(true);
+		c4.setUnbreakable(false);
 		c4.register();
 
 		CrimeItem cit = new CrimeItem("cit", new ItemAPI()
@@ -68,10 +71,12 @@ public class ItemManager {
 				.build());
 		cit.setIllegal(true);
 		cit.setOnlyCop(true);
+		cit.setUnbreakable(false);
 		cit.register();
 
 		CrimeItem book = new CrimeItem("book", new ItemAPI().lore("§7Tool")
 				.material(Material.BOOK).displayName("§aCitizen Index").build());
+		book.setUnbreakable(false);
 		book.register();
 
 		/*

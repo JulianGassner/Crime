@@ -67,6 +67,9 @@ public class P_Inv_Listener implements Listener{
 		p.getInventory().addItem(Main.instance.getItemManager().getItem("bread"));
 		
 		p.updateInventory();
+		
+		if(Main.instance.getSpawn() == null) return;
+		p.teleport(Main.instance.getSpawn());
 	}
 	
 }

@@ -17,6 +17,7 @@ import me.seemslegit.crime.managment.PerformanceManager;
 import me.seemslegit.crime.managment.PlayerManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.entity.Player;
@@ -27,6 +28,14 @@ public class Main extends JavaPlugin{
 	public static final String admin_permission = "crime.admin";
 	
 	public static Main instance;
+	
+	/**
+	 * 
+	 * @return {@link Location}
+	 */
+	public Location getSpawn() {
+		return sys_cfg.getLocation("spawn");
+	}
 	
 	public Config sys_cfg = new Config(new File("Crime//DB", "system.yml"));
 	private ErrorManager mng_error;

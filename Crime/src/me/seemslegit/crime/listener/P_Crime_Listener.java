@@ -31,9 +31,12 @@ public class P_Crime_Listener implements Listener{
 		User u = new User(p);
 		
 		if(u.hasCrime()) {
+			e.setRespawnLocation(Main.instance.getJailManager().getLocation());
 			Main.instance.getJailManager().sendToJail(u);
 			return;
 		}
+		if(Main.instance.getSpawn() == null) return;
+		e.setRespawnLocation(Main.instance.getSpawn());
 		
 	}
 	

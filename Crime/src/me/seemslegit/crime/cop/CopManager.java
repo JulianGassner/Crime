@@ -3,6 +3,7 @@ package me.seemslegit.crime.cop;
 
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.listener.P_Cop_Listener;
+import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
@@ -78,6 +79,20 @@ public class CopManager {
 			if(!(isCuffed(u))){
 				u.getStats().set("cuffed", true);
 				u.getStats().set("jail", true);
+				final UserBase uu = u;
+				new Thread(new Runnable() {
+					
+					public void run() {
+						try{
+							Thread.sleep(1000*60*5);
+						}catch(Exception e) {
+							Main.instance.getErrorManager().registerError(e);
+						}
+						if(uu.getJailTime() == -1 && uu.isInJail()) {
+							Main.instance.getJailManager().sendToJail(uu);
+						}
+					}
+				}).start();
 			}
 		}
 	}
