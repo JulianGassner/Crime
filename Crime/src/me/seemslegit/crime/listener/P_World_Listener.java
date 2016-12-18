@@ -54,25 +54,16 @@ public class P_World_Listener implements Listener{
 				e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), Main.instance.getItemManager().getItem("wheat"));
 			}else if(e.getBlock().getType() == Material.SUGAR_CANE_BLOCK) {
 				
-				Material mat = e.getBlock().getLocation().add(0, -1, 0).getBlock().getType();
+				/*Material mat = e.getBlock().getLocation().add(0, -1, 0).getBlock().getType();
 				
 				if(mat == Material.SUGAR_CANE_BLOCK) {
 					
-				}else e.setCancelled(true);
+				}else e.setCancelled(true);*/
 				
 			}
 			return;
 		}
 		e.setCancelled(true);
-	}
-	
-	/**
-	 * 
-	 * @param e {@link BlockBreakEvent}
-	 */
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onBlockBreak2(BlockBreakEvent e) {
-		if(!e.isCancelled()) return;
 	}
 	
 }

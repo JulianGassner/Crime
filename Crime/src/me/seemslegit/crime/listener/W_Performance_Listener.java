@@ -1,5 +1,6 @@
 package me.seemslegit.crime.listener;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +29,9 @@ public class W_Performance_Listener implements Listener {
 	 */
 	@EventHandler
 	public void onBlockPhysik(BlockPhysicsEvent e) {
+		Material mat = e.getBlock().getLocation().add(0, -1, 0).getBlock().getType();
+		Material matl = e.getChangedType();
+		if(mat == Material.AIR && matl == Material.SUGAR_CANE_BLOCK) return;
 		e.setCancelled(true);
 	}
 	

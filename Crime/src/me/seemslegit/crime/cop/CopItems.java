@@ -9,6 +9,7 @@ import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -128,10 +129,11 @@ public class CopItems implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockPlace(BlockPlaceEvent e){
 		if(e.isCancelled()) return;
-		e.setCancelled(true);
+		if(e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		Player p = e.getPlayer();
 		ItemStack im = p.getItemInHand();
 		if(e.getBlockPlaced().getType().equals(Material.TNT) && im.getType() == Material.TNT){
+			e.setCancelled(true);
 			if(im.getAmount() == 1) {
 				im.setType(Material.AIR);
 			}else{
@@ -143,9 +145,9 @@ public class CopItems implements Listener {
 			if(!u.isCop()){
 				u.addCrime(50);
 			}
+			p.setItemInHand(im);
+			p.updateInventory();
 		}
-		p.setItemInHand(im);
-		p.updateInventory();
 	}
 
 }
