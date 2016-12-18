@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class User extends UserBase {
 
 	/**
-	 * 
+	 * Plugin defined player
 	 * @param u {@link UUID}
 	 */
 	public User(UUID u) {
