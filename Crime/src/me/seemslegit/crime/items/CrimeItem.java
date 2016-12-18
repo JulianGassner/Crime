@@ -1,8 +1,8 @@
 package me.seemslegit.crime.items;
 
-import org.bukkit.inventory.ItemStack;
-
 import me.seemslegit.crime.plugin.Main;
+
+import org.bukkit.inventory.ItemStack;
 
 public class CrimeItem {
 
@@ -11,6 +11,7 @@ public class CrimeItem {
 	private boolean illegal = false;
 	private boolean onlycop = false;
 	private boolean drop = false;
+	private boolean unbreakable = true;
 	
 	public CrimeItem(String name) {
 		this(name, null);
@@ -50,6 +51,24 @@ public class CrimeItem {
 	public CrimeItem setDroppable(boolean b) {
 		this.drop = b;
 		return this;
+	}
+	
+	/**
+	 * 
+	 * @param b {@link Boolean}
+	 * @return {@link CrimeItem}
+	 */
+	public CrimeItem setUnbreakable(boolean b) {
+		this.unbreakable = b;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean isUnbreakable() {
+		return unbreakable;
 	}
 	
 	/**
@@ -96,6 +115,7 @@ public class CrimeItem {
 		item.setBoolean("cillegal", isIllegal());
 		item.setBoolean("coc", isOnlyCop());
 		item.setBoolean("cdrop", shouldDrop());
+		item.setInteger("Unbreakable", (isUnbreakable() ? 1 : 0));
 		return item.getItem();
 	}
 	
