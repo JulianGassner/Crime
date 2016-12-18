@@ -1,8 +1,12 @@
 package me.seemslegit.crime.cop;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import com.mojang.authlib.yggdrasil.response.User;
 
 import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
 
 public class CopManager {
 
@@ -11,6 +15,7 @@ public class CopManager {
 	}
 	
 	private void init() {
+		Main.registerCommandonBukkit("cop");
 		Bukkit.getPluginCommand("cop").setExecutor(new CopCMD());
 	}
 	
@@ -43,6 +48,16 @@ public class CopManager {
 		u.getStats().set("cop", b);
 		return "successful";
 	}
+	/**
+	 * 
+	 * @param u {@link User}
+	 */
+	
+	 
+	public static void cuff(UserBase u){
+		
+	}
+	
 	
 	
 }
