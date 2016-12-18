@@ -2,6 +2,7 @@ package me.seemslegit.crime.playerapi;
 
 import java.util.UUID;
 
+import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
@@ -49,6 +50,42 @@ public abstract class UserBase {
 	 */
 	public UserConfig getConfig(String name) {
 		return new UserConfig(this, name);
+	}
+	
+	/**
+	 * 
+	 * @return {@link Float}
+	 */
+	public float getCoins() {
+		return Main.instance.getMoneyManager().getCoins(this);
+	}
+	
+	/**
+	 * 
+	 * @param c {@link Float}
+	 */
+	public void setCoins(float c) {
+		Main.instance.getMoneyManager().setCoins(this, c);
+	}
+	
+	/**
+	 * 
+	 * @param c {@link Float}
+	 */
+	public void addCoins(float c) {
+		setCoins(getCoins() + c);
+	}
+	
+	/**
+	 * 
+	 * @param c {@link Float}
+	 */
+	public void removeCoins(float c) {
+		addCoins(-c);
+	}
+	
+	public void resetCoins() {
+		setCoins(MoneyManager.START_COINS);
 	}
 	
 	/**
