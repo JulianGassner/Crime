@@ -2,6 +2,7 @@ package me.seemslegit.crime.plugin;
 
 import java.lang.reflect.Constructor;
 
+import me.seemslegit.crime.commands.CMD_config;
 import me.seemslegit.crime.cop.CopManager;
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.managment.ErrorManager;
@@ -18,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
 
+	public static final String admin_permission = "crime.admin";
 	
 	public static Main instance;
 	
@@ -30,6 +32,13 @@ public class Main extends JavaPlugin{
 	private ItemManager mng_item;
 	private CopManager mng_cop;
 	
+	private void initCommands() {
+		
+		registerCommandonBukkit("config");
+		Bukkit.getPluginCommand("config").setExecutor(new CMD_config());
+		
+	}
+	
 	private void init() {
 		mng_error = new ErrorManager();
 		mng_money = new MoneyManager();
@@ -39,6 +48,8 @@ public class Main extends JavaPlugin{
 		mng_jail = new JailManager();
 		mng_item = new ItemManager();
 		mng_cop = new CopManager();
+		
+		initCommands();
 	}
 	
 	public void onEnable() {
