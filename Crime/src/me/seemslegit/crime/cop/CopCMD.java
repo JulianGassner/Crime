@@ -51,7 +51,7 @@ public class CopCMD implements CommandExecutor {
 				if (delay.containsKey(uuid)) {
 
 					Thread d = delay.get(uuid);
-					d.destroy();
+					d.stop();
 
 					delay.remove(uuid);
 

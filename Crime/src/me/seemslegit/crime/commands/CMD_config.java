@@ -20,6 +20,7 @@ public class CMD_config implements CommandExecutor{
 		if(args.length == 0) {
 			
 			sender.sendMessage("§8> §e/config setjail");
+			sender.sendMessage("§8> §e/config setspawn");
 			
 			return true;
 		}
@@ -36,6 +37,16 @@ public class CMD_config implements CommandExecutor{
 			Player p = (Player) sender;
 			
 			Main.instance.getJailManager().setLocation(p.getLocation());
+			p.sendMessage(Messages.prefix + "§eLocation set.");
+		}else if(arg.equalsIgnoreCase("setspawn")) {
+			if(!(sender instanceof Player)) {
+				sender.sendMessage("§8> §cOnly players can execute this command.");
+				return true;
+			}
+			
+			Player p = (Player) sender;
+			
+			Main.instance.sys_cfg.setLocation("spawn", p.getLocation());
 			p.sendMessage(Messages.prefix + "§eLocation set.");
 		}
 		

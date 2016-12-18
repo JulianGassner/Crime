@@ -1,7 +1,10 @@
 package me.seemslegit.crime.plugin;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 
+import me.seemslegit.crime.CrimeThread;
+import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.commands.CMD_config;
 import me.seemslegit.crime.cop.CopManager;
 import me.seemslegit.crime.managment.CrimeManager;
@@ -23,6 +26,7 @@ public class Main extends JavaPlugin{
 	
 	public static Main instance;
 	
+	public Config sys_cfg = new Config(new File("Crime//DB", "system.yml"));
 	private ErrorManager mng_error;
 	private MoneyManager mng_money;
 	private PlayerManager mng_player;
@@ -31,12 +35,19 @@ public class Main extends JavaPlugin{
 	private JailManager mng_jail;
 	private ItemManager mng_item;
 	private CopManager mng_cop;
+	private Thread crimethread;
 	
 	private void initCommands() {
 		
 		registerCommandonBukkit("config");
 		Bukkit.getPluginCommand("config").setExecutor(new CMD_config());
 		
+	}
+	
+	public void startCrimeThread() {
+		crimethread = new Thread(new CrimeThread());
+		crimethread.setPriority(Thread.MIN_PRIORITY);
+		crimethread.start();
 	}
 	
 	private void init() {
@@ -50,12 +61,20 @@ public class Main extends JavaPlugin{
 		mng_cop = new CopManager();
 		
 		initCommands();
+		startCrimeThread();
 	}
 	
 	public void onEnable() {
 		instance = this;
 		
 		init();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onDisable() {
+		Bukkit.getScheduler().cancelAllTasks();
+		if(crimethread != null) crimethread.stop();
 	}
 	
 	/**
