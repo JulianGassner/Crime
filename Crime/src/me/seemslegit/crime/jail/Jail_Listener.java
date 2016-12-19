@@ -1,9 +1,5 @@
 package me.seemslegit.crime.jail;
 
-import me.seemslegit.crime.managment.JailManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +7,10 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import me.seemslegit.crime.managment.JailManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 
 public class Jail_Listener implements Listener{
@@ -57,6 +57,7 @@ public class Jail_Listener implements Listener{
 		
 		User u = new User(p);
 		if(u.isInJail()) e.setCancelled(true);
+		
 	}
 	
 	/**
