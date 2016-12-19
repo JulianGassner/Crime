@@ -23,6 +23,7 @@ import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.managment.PerformanceManager;
 import me.seemslegit.crime.managment.PlayerManager;
+import me.seemslegit.crime.shops.ShopManager;
 
 public class Main extends JavaPlugin{
 
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin{
 	private JailManager mng_jail;
 	private ItemManager mng_item;
 	private CopManager mng_cop;
+	private ShopManager mng_shop;
 	private FarmingManager mng_farming;
 	private Thread crimethread;
 	private boolean started = false;
@@ -72,8 +74,9 @@ public class Main extends JavaPlugin{
 		mng_crime = new CrimeManager();
 		mng_jail = new JailManager();
 		mng_item = new ItemManager();
-		mng_cop = new CopManager();
+        mng_cop = new CopManager();
 		mng_farming = new FarmingManager();
+		mng_shop = new ShopManager();
 		
 		mng_item.init();
 		
@@ -105,6 +108,8 @@ public class Main extends JavaPlugin{
 		Bukkit.getScheduler().cancelAllTasks();
 		if(crimethread != null) crimethread.stop();
 		started = false;
+		
+	
 	}
 	
 	/**
@@ -183,6 +188,10 @@ public class Main extends JavaPlugin{
 	 * 
 	 * @param s {@link String}
 	 */
+	
+	public ShopManager getShopManager(){
+		return mng_shop;
+	}
 	public static void registerCommandonBukkit(String s) {
 		if(Bukkit.getPluginCommand(s) != null) return;
 		try{
