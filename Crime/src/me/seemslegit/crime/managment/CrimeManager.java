@@ -101,7 +101,13 @@ public class CrimeManager {
 		Score c = score.getScore(" ");
 		Score d = score.getScore("§7----------------");
 		Score e = score.getScore("§3Money: "+u.getCoins());
-		Score f = score.getScore("§c§lCrime: §c"+ crimes);
+		Score f = score.getScore("");
+		if(!u.isInJail() || !(u.getJailTime() < 0)){
+			f = score.getScore("§3§lJail-Time: "+u.getJailTime());
+		}else{
+			f = score.getScore("§c§lCrime: §c"+ crimes);
+		}
+		
 
 
 		a.setScore(6);
