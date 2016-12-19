@@ -1,10 +1,14 @@
 package me.seemslegit.crime.managment;
 
+import org.bukkit.Bukkit;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+
 import me.seemslegit.crime.listener.P_Crime_Listener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
-
-import org.bukkit.Bukkit;
 
 public class CrimeManager {
 
@@ -64,6 +68,39 @@ public class CrimeManager {
 	 */
 	public boolean hasCrime(UserBase u) {
 		return getCrime(u) > 0;
+	}
+	/**
+	 * 
+	 * @param u {@link Boolean}
+	 * @return {@link Void}
+	 */
+	public void updateCrimeBoard(UserBase u){
+		Scoreboard board = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
+		Objective score = (Objective) board.registerNewObjective("aaa", "bbb");
+		score.setDisplayName("§c§oCrime Board");
+		score.setDisplaySlot(DisplaySlot.SIDEBAR);
+		Score a = score.getScore("§aYou are");
+		Score b = score.getScore("");
+		if(u.hasCrime()){
+			b = score.getScore("§c§lbeing searched");
+		}else{
+			b = score.getScore("§6§linnocent");
+			
+		}
+		Score c = score.getScore(" ");
+		Score d = score.getScore("§7----------------");
+		Score e = score.getScore("§3Money: "+u.getCoins());
+		Score f = score.getScore("§c§lCrime: §c"+u.getCrime());
+
+
+		a.setScore(6);
+		b.setScore(5);
+		c.setScore(4);
+		d.setScore(3);
+		e.setScore(2);
+		f.setScore(1);
+
+		u.getPlayer().setScoreboard(board);
 	}
 	
 }

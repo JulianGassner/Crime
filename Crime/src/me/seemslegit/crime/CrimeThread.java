@@ -1,5 +1,10 @@
 package me.seemslegit.crime;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 public class CrimeThread implements Runnable{
@@ -13,6 +18,10 @@ public class CrimeThread implements Runnable{
 		
 			while(true) {
 				Thread.sleep(1000l);
+				for(Player p : Bukkit.getOnlinePlayers()){
+					UserBase u = new User(p);
+					Main.instance.getCrimeManager().updateCrimeBoard(u);
+				}
 				org.spigotmc.AsyncCatcher.enabled = false;
 				
 				
