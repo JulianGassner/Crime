@@ -39,7 +39,7 @@ public class CrimeManager {
 	 * @param crime {@link Long}
 	 */
 	public void setCrime(UserBase u, long crime) {
-		Bukkit.broadcastMessage(u.getName() + " > " + crime);
+		//Bukkit.broadcastMessage(u.getName() + " > " + crime);
 		if(crime < 0) crime = 0;
 		//if(crime > MAX_CRIME) crime = MAX_CRIME;
 
