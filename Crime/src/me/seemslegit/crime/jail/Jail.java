@@ -1,11 +1,14 @@
 package me.seemslegit.crime.jail;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
+import me.seemslegit.crime.cop.CopManager;
 import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class Jail {
 
@@ -26,11 +29,19 @@ public final class Jail {
 			u.resetCrime();
 		}
 		
+		CopManager cm = Main.instance.getCopManager();
+		
+		cm.rawCuff(u, true);
+		
 		Main.instance.getCopManager().removeIllegalItems(u);
 		
 		Player p = u.getPlayer();
 		
 		if(p == null) return;
+		
+		if(!p.hasPotionEffect(PotionEffectType.SLOW)) {
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*100000, 2));
+		}
 		
 		Location loc = getLocation();
 		if(loc != null) p.teleport(loc);

@@ -30,7 +30,7 @@ public class CrimeManager {
 	 * @param u {@link UserBase}
 	 */
 	public void clearCrime(UserBase u) {
-		u.getStats().set("crime", null);
+		setCrime(u, 0);
 	}
 	
 	/**
@@ -39,8 +39,9 @@ public class CrimeManager {
 	 * @param crime {@link Long}
 	 */
 	public void setCrime(UserBase u, long crime) {
+		Bukkit.broadcastMessage(u.getName() + " > " + crime);
 		if(crime < 0) crime = 0;
-		if(crime > MAX_CRIME) crime = MAX_CRIME;
+		//if(crime > MAX_CRIME) crime = MAX_CRIME;
 
 		if(crime > 0 && u.isCop()) Main.instance.getCopManager().switchCop(u);
 		u.getStats().set("crime", System.currentTimeMillis() + (crime * 1000));
@@ -57,7 +58,7 @@ public class CrimeManager {
 			l -= System.currentTimeMillis();
 			l /= 1000;
 			if(l < 0) l = 0;
-			if(l > MAX_CRIME) l = MAX_CRIME;
+			//if(l > MAX_CRIME) l = MAX_CRIME;
 		}
 		return l;
 	}
@@ -76,6 +77,9 @@ public class CrimeManager {
 	 * @return {@link Void}
 	 */
 	public void updateCrimeBoard(UserBase u){
+		
+		//Bukkit.broadcastMessage(u.getName() + " Crime: " + u.getCrime() + " | JT: " + u.getJailTime() + " | Cop:" + u.isCop());
+		
 		Scoreboard board = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
 		Objective score = (Objective) board.registerNewObjective("aaa", "bbb");
 		score.setDisplayName("§c§oCrime Board");
@@ -104,9 +108,9 @@ public class CrimeManager {
 		Score d = score.getScore("§7----------------");
 		Score e = score.getScore("§3Money: "+u.getCoins());
 		Score f = score.getScore("");
-		if(!u.isInJail() || !(u.getJailTime() < 0)){
+		if(u.isInJail() && u.getJailTime() > -1){
 			f = score.getScore("§3§lJail-Time: "+u.getJailTime());
-		}else{
+		}else if(!u.isCop()){
 			f = score.getScore("§c§lCrime: §c"+ crimes);
 		}
 		

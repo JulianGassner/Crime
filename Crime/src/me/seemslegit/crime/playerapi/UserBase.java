@@ -55,6 +55,7 @@ public abstract class UserBase {
 	 */
 	public void setJailTime(long jt) {
 		if(jt > 60*30) jt = 60*30;
+		Bukkit.broadcastMessage(getName() + " > JT: " + jt);
 		getStats().set("jailtime", jt);
 	}
 	

@@ -92,20 +92,21 @@ public class P_Crime_Listener implements Listener{
 	 * @param killer {@link Entity}
 	 */
 	private void checkDeath(User u, Entity killer) {
+		
+		if(!(killer instanceof Player)) return;
+		
 		Player p = (Player) killer;
 		User t = new User(p);
 		
+		
+		
 		if(u.getCrime() >= 1000) {
-			
-			Bukkit.broadcastMessage(Messages.prefix+"§a"+killer.getCustomName()+"§e got the bounty of §c"+u.getPlayer().getCustomName());
-			
+			Bukkit.broadcastMessage(Messages.prefix+"§a"+p.getName()+"§e got the bounty of §c"+Bukkit.getOfflinePlayer(u.getUUID()).getName());
 		}else if(t.isCop()){
 			return;
-		}else if(killer instanceof Player) {	
+		}else{
 			t.addCrime(CrimeManager.CRIME_PER_KILL);
 			killer.sendMessage("§eYou have "+t.getCrime()+" Crime left...");
-			
-			
 		}
 		
 	}
@@ -114,15 +115,19 @@ public class P_Crime_Listener implements Listener{
 	 * 
 	 * @param e {@link EntityDamageByEntityEvent}
 	 */
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onHit(EntityDamageByEntityEvent e){
+		if(e.isCancelled()) return;
 		if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
 			Player t = (Player) e.getDamager();
 			Player p = (Player) e.getEntity();
-			UserBase ut = new User(t);
-			if(!ut.isCop() && !new User(p).hasCrime()){
-				ut.addCrime(CrimeManager.CRIME_PER_HIT);
-			}
+			UserBase tu = new User(t);
+			User pu = new User(p);
+			
+			if(tu.isCop()) return;
+			if(pu.hasCrime()) return;
+			
+			tu.addCrime(CrimeManager.CRIME_PER_HIT);
 		}
 	}
 	

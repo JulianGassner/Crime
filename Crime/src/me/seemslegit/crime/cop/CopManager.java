@@ -49,7 +49,7 @@ public class CopManager {
 	public boolean switchCop(UserBase u){
 		boolean b = isCop(u);
 		if(!b) {
-			if(u.hasCrime() || !u.isOnline()) {
+			if(u.hasCrime() || !u.isOnline() || u.getJailTime() != -1) {
 				return false;
 			}else{
 				u.cacheInventory(u.getInventory());
@@ -72,28 +72,37 @@ public class CopManager {
 	 * 
 	 * @param u {@link User}
 	 */
+	public void rawCuff(UserBase u, boolean b) {
+		u.getStats().set("cuffed", b);
+	}
+	
+	/**
+	 * 
+	 * @param u {@link User}
+	 */
 	public void cuff(UserBase u){
-		if(u.isOnline() == true){
+		if(u.isOnline()){
 			u.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*100000, 2));
 			u.getPlayer().sendMessage("§8> §cYou've been cuffed!");
-			if(!(isCuffed(u))){
-				u.getStats().set("cuffed", true);
-				u.getStats().set("jail", true);
-				final UserBase uu = u;
-				new Thread(new Runnable() {
-					
-					public void run() {
-						try{
-							Thread.sleep(1000*60*5);
-						}catch(Exception e) {
-							Main.instance.getErrorManager().registerError(e);
-						}
-						if(uu.getJailTime() == -1 && uu.isInJail()) {
-							Main.instance.getJailManager().sendToJail(uu);
-						}
+		}
+		if(!isCuffed(u)){
+			rawCuff(u, true);
+			u.getStats().set("jail", true);
+			/**if(u.getJailTime() != -1) return;
+			final UserBase uu = u;
+			new Thread(new Runnable() {
+				
+				public void run() {
+					try{
+						Thread.sleep(1000*60*5);
+					}catch(Exception e) {
+						Main.instance.getErrorManager().registerError(e);
 					}
-				}).start();
-			}
+					if(uu.getJailTime() == -1 && uu.isInJail()) {
+						Main.instance.getJailManager().sendToJail(uu);
+					}
+				}
+			}).start();**/
 		}
 	}
 	
@@ -102,12 +111,14 @@ public class CopManager {
 	 * @param u {@link User}
 	 */
 	public void uncuff(UserBase u){
-		if(!isCuffed(u) == false){
+		if(isCuffed(u)){
 			if(u.isOnline()) {
-				u.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+				if(u.getPlayer().hasPotionEffect(PotionEffectType.SLOW)) {
+					u.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+				}
 				u.getPlayer().sendMessage("§8> §aYou've been uncuffed!");
 			}
-			u.getStats().set("cuffed", false);
+			rawCuff(u, false);
 			u.resetCrime();
 			u.getStats().set("jail", false);
 			u.resetJailTime();

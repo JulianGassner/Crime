@@ -1,16 +1,5 @@
 package me.seemslegit.crime.cop;
 
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.inventory.ItemStack;
-
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.api.ItemAPI;
 import me.seemslegit.crime.api.PlayerCache;
@@ -19,6 +8,19 @@ import me.seemslegit.crime.managment.ItemManager;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
+
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class CopItems implements Listener {
 
@@ -78,6 +80,11 @@ public class CopItems implements Listener {
 			return;
 
 		if (name.equalsIgnoreCase("handcuffs")) {
+			double health = ((CraftPlayer)t).getHealth();
+			if(health > 8) {
+				p.sendMessage(Messages.prefix + "§cFailed to cuff...");
+				return;
+			}
 			if(new User(t).isCop()) {
 				p.sendMessage(Messages.prefix + "§cYou cant cuff another cop!");
 				return;
@@ -85,8 +92,13 @@ public class CopItems implements Listener {
 			p.sendMessage(Messages.prefix+"§aYou successfully cuffed §6"+t.getName());
 			Main.instance.getCopManager().cuff(new User(t));
 		} else if (name.equalsIgnoreCase("copsword")) {
-			if(Main.instance.getCopManager().isCuffed(new User(t)) == true){
+			if(Main.instance.getCopManager().isCuffed(new User(t))){
 				UserBase b = new User(t);
+				if(b.getJailTime() != -1) {
+					Location loc = Main.instance.getJailManager().getLocation();
+					if(loc != null) b.teleport(loc);
+					return;
+				}
 				if(!b.hasCrime()) {
 					p.sendMessage(Messages.prefix + "§cThis player has no crime. You cant lock him.");
 					return;
