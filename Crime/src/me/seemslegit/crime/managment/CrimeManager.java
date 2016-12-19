@@ -80,16 +80,17 @@ public class CrimeManager {
 		
 		//Bukkit.broadcastMessage(u.getName() + " Crime: " + u.getCrime() + " | JT: " + u.getJailTime() + " | Cop:" + u.isCop());
 		
+		
 		Scoreboard board = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
 		Objective score = (Objective) board.registerNewObjective("aaa", "bbb");
 		score.setDisplayName("§c§oCrime Board");
 		score.setDisplaySlot(DisplaySlot.SIDEBAR);
 		Score a = score.getScore("§aYou are");
 		Score b = score.getScore("");
-		if(u.hasCrime()){
-			b = score.getScore("§c§lbeing searched");
-		}else if(u.getJailTime() > -1) {
+		if(u.getJailTime() > -1){
 			b = score.getScore("§c§la prisener");
+		}else if(u.hasCrime()) {
+			b = score.getScore("§c§lbeing searched");
 		}else if(u.isCop()){
 			b = score.getScore("§1§la cop");
 		}else{
@@ -99,13 +100,16 @@ public class CrimeManager {
 		String crimes = "";
 		
 		if(crime > 999) {
-			crimes = (crime / 1000) + "k";
+			float lel = crime;
+			lel /= 100;
+			float lel2 = Math.round(lel);
+			crimes = (lel2 / 10) + "k";
 		}else{
 			crimes = crime + "";
 		}
 		
 		Score c = score.getScore(" ");
-		Score d = score.getScore("§7----------------");
+		Score d = score.getScore("§7§m----------------");
 		Score e = score.getScore("§3Money: "+u.getCoins());
 		Score f = score.getScore("");
 		if(u.isInJail() && u.getJailTime() > -1){
