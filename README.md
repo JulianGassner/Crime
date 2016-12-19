@@ -12,6 +12,9 @@ Todo:
 - Bread Farm - Done
 - Disallow crafting (only for special custom recipes) - Done
 - Add scoreboard - Done
-- Add Thread (remove JailTime per tick)
+- Add Thread (remove JailTime per tick) - Done
 - Add Zombies (if offline with crime)
 - Add offline teleport
+- Add scoreboard with support for more then 16 chars
+- Remove World-Auto-Save
+- Add Inventory-Auto-Save
