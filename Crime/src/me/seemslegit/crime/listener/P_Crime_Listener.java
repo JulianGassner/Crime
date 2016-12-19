@@ -110,12 +110,17 @@ public class P_Crime_Listener implements Listener{
 		
 	}
 	
+	/**
+	 * 
+	 * @param e {@link EntityDamageByEntityEvent}
+	 */
 	@EventHandler
 	public void onHit(EntityDamageByEntityEvent e){
-		if(e.getDamager() instanceof Player || e.getEntity() instanceof Player){
+		if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
 			Player t = (Player) e.getDamager();
+			Player p = (Player) e.getEntity();
 			UserBase ut = new User(t);
-			if(!ut.isCop()){
+			if(!ut.isCop() && !new User(p).hasCrime()){
 				ut.addCrime(CrimeManager.CRIME_PER_HIT);
 			}
 		}

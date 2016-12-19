@@ -1,14 +1,14 @@
 package me.seemslegit.crime.managment;
 
+import me.seemslegit.crime.listener.P_Crime_Listener;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
-
-import me.seemslegit.crime.listener.P_Crime_Listener;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
 
 public class CrimeManager {
 
@@ -84,10 +84,12 @@ public class CrimeManager {
 		Score b = score.getScore("");
 		if(u.hasCrime()){
 			b = score.getScore("§c§lbeing searched");
-		}else if(!u.hasCrime()){
-			b = score.getScore("§6§linnocent");	
+		}else if(u.getJailTime() > -1) {
+			b = score.getScore("§c§la prisener");
 		}else if(u.isCop()){
 			b = score.getScore("§1§la cop");
+		}else{
+			b = score.getScore("§6§l innocent");	
 		}
 		long crime = u.getCrime();
 		String crimes = "";
