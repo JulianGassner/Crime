@@ -1,11 +1,11 @@
 package me.seemslegit.crime.jail;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
-
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 public final class Jail {
 
@@ -20,7 +20,7 @@ public final class Jail {
 		if(u.hasCrime()) {
 			long crime = u.getCrime();
 			
-			long jt = crime / 10;
+			long jt = crime;
 			
 			u.setJailTime(u.getJailTime() + jt);
 			u.resetCrime();
@@ -36,7 +36,6 @@ public final class Jail {
 		if(loc != null) p.teleport(loc);
 		
 	}
- 	
 	
 	
 	
