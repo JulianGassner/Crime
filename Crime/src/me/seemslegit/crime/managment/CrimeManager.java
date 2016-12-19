@@ -1,20 +1,21 @@
 package me.seemslegit.crime.managment;
 
-import me.seemslegit.crime.listener.P_Crime_Listener;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
+import me.seemslegit.crime.listener.P_Crime_Listener;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 public class CrimeManager {
 
 	public static final long MAX_CRIME = 1*60*60*24;
 	public static final long CRIME_PER_KILL = 1100;
 	public static final long CRIME_PER_ROB = 480;
+	public static final long CRIME_PER_HIT = 75;
 	
 	private void init() {
 		Bukkit.getPluginManager().registerEvents(new P_Crime_Listener(), Main.instance);
