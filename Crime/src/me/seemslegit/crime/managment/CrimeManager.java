@@ -1,14 +1,14 @@
 package me.seemslegit.crime.managment;
 
+import me.seemslegit.crime.listener.P_Crime_Listener;
+import me.seemslegit.crime.playerapi.UserBase;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
-
-import me.seemslegit.crime.listener.P_Crime_Listener;
-import me.seemslegit.crime.playerapi.UserBase;
-import me.seemslegit.crime.plugin.Main;
 
 public class CrimeManager {
 
@@ -88,10 +88,19 @@ public class CrimeManager {
 		}else if(u.isCop()){
 			b = score.getScore("§1§la cop");
 		}
+		long crime = u.getCrime();
+		String crimes = "";
+		
+		if(crime > 999) {
+			crimes = (crime / 1000) + "k";
+		}else{
+			crimes = crime + "";
+		}
+		
 		Score c = score.getScore(" ");
 		Score d = score.getScore("§7----------------");
 		Score e = score.getScore("§3Money: "+u.getCoins());
-		Score f = score.getScore("§c§lCrime: §c"+u.getCrime());
+		Score f = score.getScore("§c§lCrime: §c"+ crimes);
 
 
 		a.setScore(6);
