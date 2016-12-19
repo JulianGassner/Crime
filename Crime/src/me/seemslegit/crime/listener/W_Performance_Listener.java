@@ -2,6 +2,8 @@ package me.seemslegit.crime.listener;
 
 import java.util.ArrayList;
 
+import me.seemslegit.crime.api.CachedBlock;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,8 +18,6 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.PortalCreateEvent;
 
-import me.seemslegit.crime.api.CachedBlock;
-
 public class W_Performance_Listener implements Listener {
 
 	private static ArrayList<CachedBlock> block = new ArrayList<CachedBlock>();
@@ -26,7 +26,6 @@ public class W_Performance_Listener implements Listener {
 		
 		Thread d = new Thread(new Runnable() {
 			
-			@Override
 			public void run() {
 				while(true) {
 					try{

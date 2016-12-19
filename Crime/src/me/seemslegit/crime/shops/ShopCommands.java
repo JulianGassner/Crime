@@ -2,20 +2,20 @@ package me.seemslegit.crime.shops;
 
 import java.util.HashMap;
 
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.plugin.Main;
-
 
 public class ShopCommands implements CommandExecutor{
 	private HashMap<String, Location> pos1 = new HashMap<String, Location>();
 	private HashMap<String, Location> pos2 = new HashMap<String, Location>();
-	@Override
+	
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(!(cs instanceof Player)){
 			cs.sendMessage("You have to be a player.");
