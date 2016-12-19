@@ -8,6 +8,7 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -17,6 +18,7 @@ import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 public class P_Crime_Listener implements Listener{
@@ -105,6 +107,16 @@ public class P_Crime_Listener implements Listener{
 			
 		}
 		
+	}
+	
+	public void onHit(EntityDamageByEntityEvent e){
+		if(e.getDamager() instanceof Player || e.getEntity() instanceof Player){
+			Player t = (Player) e.getDamager();
+			UserBase ut = new User(t);
+			if(!ut.isCop()){
+				ut.addCrime(CrimeManager.CRIME_PER_HIT);
+			}
+		}
 	}
 	
 }

@@ -13,8 +13,9 @@ import me.seemslegit.crime.plugin.Main;
 public class CrimeManager {
 
 	public static final long MAX_CRIME = 1*60*60*24;
-	public static final long CRIME_PER_KILL = 1100;
+	public static final long CRIME_PER_KILL = 400;
 	public static final long CRIME_PER_ROB = 480;
+	public static final long CRIME_PER_HIT = 100;
 	
 	private void init() {
 		Bukkit.getPluginManager().registerEvents(new P_Crime_Listener(), Main.instance);
