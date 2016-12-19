@@ -18,11 +18,11 @@ public class CrimeThread implements Runnable{
 		
 			while(true) {
 				Thread.sleep(1000l);
+				org.spigotmc.AsyncCatcher.enabled = false;
 				for(Player p : Bukkit.getOnlinePlayers()){
 					UserBase u = new User(p);
 					Main.instance.getCrimeManager().updateCrimeBoard(u);
 				}
-				org.spigotmc.AsyncCatcher.enabled = false;
 				
 				
 				
