@@ -100,7 +100,7 @@ public class CopItems implements Listener {
 			
 		}else if (name.equalsIgnoreCase("cit")){
 			if(new User(t).isCop()) {
-				p.sendMessage(Messages.prefix + "§cYou cant clear a inventory of another cop!");
+				p.sendMessage(Messages.prefix + "§cYou can't clear a inventory of another cop!");
 				return;
 			}
 			p.sendMessage(Messages.prefix+"§aYou successfully §cremoved all illegal items §aof §6"+t.getName());

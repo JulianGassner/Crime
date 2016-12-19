@@ -83,9 +83,10 @@ public class CrimeManager {
 		Score b = score.getScore("");
 		if(u.hasCrime()){
 			b = score.getScore("§c§lbeing searched");
-		}else{
-			b = score.getScore("§6§linnocent");
-			
+		}else if(!u.hasCrime()){
+			b = score.getScore("§6§linnocent");	
+		}else if(u.isCop()){
+			b = score.getScore("§1§la cop");
 		}
 		Score c = score.getScore(" ");
 		Score d = score.getScore("§7----------------");

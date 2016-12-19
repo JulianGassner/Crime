@@ -82,7 +82,7 @@ public class W_Performance_Listener implements Listener {
 	 * @param e {@link EntityExplodeEvent}
 	 */
 	@EventHandler
-	public void onAllahuAkba(EntityExplodeEvent e) {
+	public void onExplode(EntityExplodeEvent e) {
 		for(Block b : e.blockList()) {
 			
 			Location loc = b.getLocation();

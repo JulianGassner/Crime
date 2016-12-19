@@ -1,10 +1,6 @@
 package me.seemslegit.crime.listener;
 
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.managment.CrimeManager;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,6 +12,12 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.managment.CrimeManager;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 public class P_Crime_Listener implements Listener{
 
@@ -88,21 +90,18 @@ public class P_Crime_Listener implements Listener{
 	 * @param killer {@link Entity}
 	 */
 	private void checkDeath(User u, Entity killer) {
-		
-		if(u.hasCrime()) {
+		Player p = (Player) killer;
+		User t = new User(p);
+		if(u.getCrime() >= 1000) {
+			Bukkit.broadcastMessage(Messages.prefix+"§a"+killer.getCustomName()+"§e got the bounty of §c"+u.getPlayer().getCustomName());
 			
 			
+		}else if(t.isCop()){
+			return;
+		}else if(killer instanceof Player) {	
+			t.addCrime(CrimeManager.CRIME_PER_KILL);
+			killer.sendMessage("§eYou have "+t.getCrime()+" Crime left...");
 			
-		}else{
-			
-			if(killer instanceof Player) {
-				
-				Player p = (Player) killer;
-				User t = new User(p);
-				
-				t.addCrime(CrimeManager.CRIME_PER_KILL);
-				
-			}
 			
 		}
 		
