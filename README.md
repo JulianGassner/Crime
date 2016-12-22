@@ -14,7 +14,7 @@ Todo:
 - Add scoreboard - Done
 - Add Thread (remove JailTime per tick) - Done
 - Add Zombies (if offline with crime)
-- Add offline teleport
+- Add offline teleport - Done
 - Add scoreboard with support for more then 16 chars
 - Remove World-Auto-Save
 - Add Inventory-Auto-Save
