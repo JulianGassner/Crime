@@ -52,18 +52,24 @@ public class CopManager {
 			if(u.hasCrime() || !u.isOnline() || u.getJailTime() != -1) {
 				return false;
 			}else{
-				u.cacheInventory(u.getInventory());
+				u.cacheInventory(u.getInventory(), u.getArmor());
 				CopItems.giveCopItems(u);
 				b = true;
 			}
 		}else{
-			u.setInventory(u.loadCachedInventory());
+			u.setInventory(u.loadCachedInventory(), u.loadCachedArmor());
 			b = false;
 		}
 		
 		u.getStats().set("cop", b);
 		return true;
 	}
+	
+	/**
+	 * 
+	 * @param u {@link UserBase}
+	 * @return {@link Boolean}
+	 */
 	public boolean isCuffed(UserBase u){
 		return u.getStats().getBoolean("cuffed", false);
 	}
@@ -146,7 +152,7 @@ public class CopManager {
 			
 		}
 		
-		u.setInventory(inv);
+		u.setInventory(inv, u.getArmor());
 		
 	}
 	

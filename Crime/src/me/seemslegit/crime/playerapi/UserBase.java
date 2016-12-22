@@ -3,6 +3,7 @@ package me.seemslegit.crime.playerapi;
 import java.util.UUID;
 
 import me.seemslegit.crime.api.CachedInventory;
+import me.seemslegit.crime.decodings.Base64;
 import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.plugin.Main;
 
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class UserBase {
 
@@ -22,6 +24,35 @@ public abstract class UserBase {
 	UserBase(UUID u) {
 		this.u = u;
 	}
+
+	/**
+	 * 
+	 * @param loc {@link Location}
+	 */
+	public void setCachedLocation(Location loc) {
+		getStats().setLocation("loc", loc);
+	}
+	
+	/**
+	 * 
+	 * @return {@link Location}
+	 */
+	public Location getCachedLocation() {
+		Location loc = getStats().getLocation("loc");
+		if(loc == null) loc = Main.instance.getSpawn();
+		return loc;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Location}
+	 */
+	public Location getLocation() {
+		Player p = getPlayer();
+		
+		if(p == null) return getCachedLocation();
+		return p.getLocation();
+	}
 	
 	/**
 	 * 
@@ -31,7 +62,7 @@ public abstract class UserBase {
 		if(loc == null) return;
 		Player p = getPlayer();
 		if(p == null) {
-			
+			setCachedLocation(loc);
 		}else{
 			p.teleport(loc);
 		}
@@ -95,6 +126,47 @@ public abstract class UserBase {
 	
 	/**
 	 * 
+	 * @return {@link ItemStack}
+	 */
+	public ItemStack[] loadCachedArmor() {
+		
+		try{
+			
+			String str = getStats().getString("armor");
+			
+			if(str == null) return null;
+			
+			Object[] obj = Base64.ArrayFromBase64(str);
+			
+			if(obj == null) return null;
+			
+			ItemStack[] armor = new ItemStack[obj.length];
+			
+			int b = 0;
+			for(Object o : obj) {
+				armor[b] = (ItemStack) o;
+				b++;
+			}
+			
+			return armor;
+		}catch(Exception e) {
+			Main.instance.getErrorManager().registerError(e);
+		}
+		
+		return null;
+	}
+	
+	public ItemStack[] getArmor() {
+		Player p = getPlayer();
+		if(p == null) {
+			return loadCachedArmor();
+		}else{
+			return p.getInventory().getArmorContents();
+		}
+	}
+	
+	/**
+	 * 
 	 * @return {@link Inventory}
 	 */
 	public Inventory getInventory() {
@@ -116,8 +188,12 @@ public abstract class UserBase {
 	/**
 	 * 
 	 * @param inv {@link Inventory}
+	 * @param armor {@link ItemStack}
 	 */
-	public void cacheInventory(Inventory inv) {
+	public void cacheInventory(Inventory inv, ItemStack[] armor) {
+		if(armor != null) {
+			getStats().set("armor", Base64.ArraytoBase64(armor));
+		}
 		new CachedInventory(getStats()).saveInventory(inv, "inv");
 	}
 	
@@ -125,12 +201,13 @@ public abstract class UserBase {
 	 * 
 	 * @param inv {@link Inventory}
 	 */
-	public void setInventory(Inventory inv) {
+	public void setInventory(Inventory inv, ItemStack[] armor) {
 		Player p = getPlayer();
 		if(p == null) {
-			cacheInventory(inv);
+			cacheInventory(inv, armor);
 		}else{
 			p.getInventory().setContents(inv.getContents());
+			p.getInventory().setArmorContents(armor);
 			p.updateInventory();
 		}
 	}
