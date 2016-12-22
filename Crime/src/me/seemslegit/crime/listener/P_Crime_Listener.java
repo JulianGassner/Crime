@@ -8,6 +8,7 @@ import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class P_Crime_Listener implements Listener{
@@ -54,16 +56,21 @@ public class P_Crime_Listener implements Listener{
 		
 		e.setKeepInventory(true);
 		
-		for(int i = 0;i<p.getInventory().getSize();i++) {
-			ItemStack item = p.getInventory().getItem(i);
+		new User(p).setInventory(dropItems(p.getInventory(), p.getLocation()), null);
+		
+	}
+	
+	public static Inventory dropItems(Inventory inv, Location loc) {
+		for(int i = 0;i<inv.getSize();i++) {
+			ItemStack item = inv.getItem(i);
 			if(item == null || item.getType() == Material.AIR) continue;
 			if(CrimeItem.shouldDrop(item)) {
-				p.getWorld().dropItem(p.getLocation(), item);
-				p.getInventory().setItem(i, null);
+				loc.getWorld().dropItem(loc, item);
+				inv.setItem(i, null);
 			}
 			
 		}
-		
+		return inv;
 	}
 	
 	/**
