@@ -19,7 +19,7 @@ public class P_Quit_Listener implements Listener {
 
 		Player p = e.getPlayer();
 
-		e.setQuitMessage(Messages.p_join.replace("%1%", p.getDisplayName()));
+		e.setQuitMessage(Messages.p_leave.replace("%1%", p.getDisplayName()));
 
 	}
 

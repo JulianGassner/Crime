@@ -1,6 +1,7 @@
 package me.seemslegit.crime.listener;
 
 import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.api.PlayerCache;
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
@@ -36,6 +37,8 @@ public class P_Crime_Listener implements Listener{
 		
 		final Player p = e.getPlayer();
 		
+		new PlayerCache(p).clearPlayer();
+		
 		User u = new User(p);
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
@@ -66,6 +69,8 @@ public class P_Crime_Listener implements Listener{
 		Player p = e.getEntity();
 		
 		e.setKeepInventory(true);
+		
+		if(new User(p).isCop()) return;
 		
 		new User(p).setInventory(dropItems(p.getInventory(), p.getLocation()), null);
 		
@@ -135,15 +140,15 @@ public class P_Crime_Listener implements Listener{
 	public void onHit(EntityDamageByEntityEvent e){
 		if(e.isCancelled()) return;
 		if(e.getDamager() instanceof Player && e.getEntity() instanceof Player){
-			Player t = (Player) e.getDamager();
-			Player p = (Player) e.getEntity();
-			UserBase tu = new User(t);
-			User pu = new User(p);
+			Player p = (Player) e.getDamager();
+			Player t = (Player) e.getEntity();
+			UserBase hitted = new User(t);
+			User hitter = new User(p);
 			
-			if(tu.isCop()) return;
-			if(pu.hasCrime()) return;
+			if(hitter.isCop()) return;
+			if(hitted.hasCrime()) return;
 			
-			tu.addCrime(CrimeManager.CRIME_PER_HIT);
+			hitter.addCrime(CrimeManager.CRIME_PER_HIT);
 		}
 	}
 	
