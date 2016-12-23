@@ -1,5 +1,5 @@
 package me.seemslegit.crime.regions;
 
 public enum RegionType {
-	NONE, SHOP, JAIL;
+	NONE, SHOP, JAIL, GAME;
 }
