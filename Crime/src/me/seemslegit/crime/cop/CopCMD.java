@@ -2,14 +2,15 @@ package me.seemslegit.crime.cop;
 
 import java.util.HashMap;
 
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
 
 public class CopCMD implements CommandExecutor {
 
@@ -73,9 +74,25 @@ public class CopCMD implements CommandExecutor {
 					});
 					delay.put(uuid, d);
 					d.start();
+			
 				}
-
-			} else {
+			
+				
+			} else if(args[0].equalsIgnoreCase("c")) {
+				if(args.length > 2 || args.length < 2){
+					p.sendMessage("§7> §6/cop s [Money] - Predefined message to get corrupt. ;)");
+					return true;
+				}
+				for(Entity all: p.getNearbyEntities(20, 100, 20)){
+					all.sendMessage("*§1Cop §c"+p.getName()+" whispers* §ePst.. If you pay me "+args[1]+" I will let you go... §cFor that pay me the money with /money pay "+p.getName()+" "+args[1]+" and drop your sword!");
+				}
+			}else if(args[0].equalsIgnoreCase("s")){
+				if(args.length == 0){
+					for(Entity all: p.getNearbyEntities(20, 100, 20)){
+						all.sendMessage("§4§lSTOP ! §1§lPOLICE.");
+					}
+				}
+			}else{
 				p.sendMessage(Messages.unknownCommand);
 			}
 		}else{
