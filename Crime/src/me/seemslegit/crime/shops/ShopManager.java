@@ -39,6 +39,9 @@ public class ShopManager {
 		r.setLoc1(p1);
 		r.setLoc2(p2);
 		
+		r.setGreeting("§eEntering shop");
+		r.setFarewell("§eLeaving shop");
+		
 		cfg.set("Regions." + name,  p1.getWorld().getUID().toString());
 	}
 }

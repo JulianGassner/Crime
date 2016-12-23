@@ -1,10 +1,14 @@
 package me.seemslegit.crime.regions;
 
+import java.io.File;
 import java.util.UUID;
 
 import me.seemslegit.crime.api.Config;
+import me.seemslegit.crime.plugin.Main;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 public class Region {
 
@@ -23,8 +27,36 @@ public class Region {
 		setupConfig();
 	}
 	
+	private void reloadRegionPool() {
+		
+		World w = Bukkit.getWorld(getWorldUid());
+		
+		if(w == null) return;
+		
+		Main.instance.getRegionManager().getWorldRegionPool(w).load();
+		
+	}
+	
+	/**
+	 * 
+	 * @param w {@link World}
+	 * @return {@link File}
+	 */
+	public static File worldToDirectory(World w) {
+		return worldToDirectory(w.getUID());
+	}
+	
+	/**
+	 * 
+	 * @param u {@link UUID}
+	 * @return {@link File}
+	 */
+	public static File worldToDirectory(UUID u) {
+		return new File("Crime//Regions//" + u.toString());
+	}
+	
 	private void setupConfig() {
-		cfg = new Config("Crime//Regions//" + worlduid.toString(), getID() + ".yml");
+		cfg = new Config(new File(worldToDirectory(getWorldUid()), getID() + ".yml"));
 	}
 	
 	/**
@@ -41,6 +73,7 @@ public class Region {
 	 */
 	public void setFarewell(String msg) {
 		cfg.set("farewell", msg);
+		reloadRegionPool();
 	}
 	
 	/**
@@ -49,6 +82,7 @@ public class Region {
 	 */
 	public void setGreeting(String msg) {
 		cfg.set("greeting", msg);
+		reloadRegionPool();
 	}
 	
 	/**
@@ -81,6 +115,7 @@ public class Region {
 	 */
 	public void setLoc1(Location loc) {
 		cfg.setLocation("loc1", loc);
+		reloadRegionPool();
 	}
 	
 	/**
@@ -89,6 +124,7 @@ public class Region {
 	 */
 	public void setLoc2(Location loc) {
 		cfg.setLocation("loc2", loc);
+		reloadRegionPool();
 	}
 	
 	/**
@@ -133,6 +169,18 @@ public class Region {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * 
+	 * @return {@link String}
+	 */
+	public String getFarewell() {
+		return cfg.getString("farewell", null);
+	}
+
+	public String getGreeting() {
+		return cfg.getString("greeting", null);
 	}
 	
 }

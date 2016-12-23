@@ -83,6 +83,7 @@ public class Main extends JavaPlugin{
 		mng_region = new RegionManager();
 		
 		mng_item.init();
+		mng_region.init();
 		
 		initCommands();
 		startCrimeThread();
