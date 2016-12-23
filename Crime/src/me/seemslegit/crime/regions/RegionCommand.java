@@ -65,7 +65,15 @@ public class RegionCommand implements CommandExecutor{
 				return true;
 			}
 			
-			r.setFarewell(ChatColor.translateAlternateColorCodes('&', args[2]));
+			String msg = "";
+			
+			for(int i = 2;i<args.length;i++) {
+				msg = msg + " " + args[i];
+			}
+			
+			msg = msg.replaceFirst(" ", "");
+			
+			r.setFarewell(ChatColor.translateAlternateColorCodes('&', msg));
 			
 			p.sendMessage("§dFarewell for Region '" + r.getID() + "' set.");
 			
@@ -87,7 +95,16 @@ public class RegionCommand implements CommandExecutor{
 				return true;
 			}
 			
-			r.setGreeting(ChatColor.translateAlternateColorCodes('&', args[2]));
+			String msg = "";
+			
+			for(int i = 2;i<args.length;i++) {
+				msg = msg + " " + args[i];
+			}
+			
+			msg = msg.replaceFirst(" ", "");
+			
+			r.setGreeting(ChatColor.translateAlternateColorCodes('&', msg));
+			
 			p.sendMessage("§dGreeting for Region '" + r.getID() + "' set.");
 			
 		}else if(arg.equalsIgnoreCase("create")) {

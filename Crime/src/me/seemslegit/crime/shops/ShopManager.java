@@ -5,6 +5,7 @@ import java.io.File;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.plugin.Main;
 import me.seemslegit.crime.regions.Region;
+import me.seemslegit.crime.regions.RegionType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,6 +39,7 @@ public class ShopManager {
 		Region r = new Region(name, p1.getWorld().getUID());
 		r.setLoc1(p1);
 		r.setLoc2(p2);
+		r.setType(RegionType.SHOP);
 		
 		r.setGreeting("§eEntering shop");
 		r.setFarewell("§eLeaving shop");
