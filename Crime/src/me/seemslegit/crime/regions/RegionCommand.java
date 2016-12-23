@@ -3,6 +3,7 @@ package me.seemslegit.crime.regions;
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.plugin.Main;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,6 +30,8 @@ public class RegionCommand implements CommandExecutor{
 			p.sendMessage("§8> §e/region pos2");
 			p.sendMessage("§8> §e/region create");
 			p.sendMessage("§8> §e/region delete");
+			p.sendMessage("§8> §e/region setGreeting");
+			p.sendMessage("§8> §e/region setFarewell");
 			
 			return true;
 		}
@@ -44,6 +47,49 @@ public class RegionCommand implements CommandExecutor{
 			
 			rm.setPos2(p, p.getLocation());
 		
+		}else if(arg.equalsIgnoreCase("setFarewell")) {
+			
+			if(args.length < 3) {
+				
+				p.sendMessage("§8> §e/region setFarewell <Region> <Message>");
+				
+				return true;
+			}
+			
+			arg = args[1];
+			
+			Region r = rm.getRegion(p.getWorld(), arg);
+			
+			if(r == null) {
+				p.sendMessage("§8> §cRegion not found!");
+				return true;
+			}
+			
+			r.setFarewell(ChatColor.translateAlternateColorCodes('&', args[2]));
+			
+			p.sendMessage("§dFarewell for Region '" + r.getID() + "' set.");
+			
+		}else if(arg.equalsIgnoreCase("setGreeting")) {
+			
+			if(args.length < 3) {
+				
+				p.sendMessage("§8> §e/region setGreeting <Region> <Message>");
+				
+				return true;
+			}
+			
+			arg = args[1];
+			
+			Region r = rm.getRegion(p.getWorld(), arg);
+			
+			if(r == null) {
+				p.sendMessage("§8> §cRegion not found!");
+				return true;
+			}
+			
+			r.setGreeting(ChatColor.translateAlternateColorCodes('&', args[2]));
+			p.sendMessage("§dGreeting for Region '" + r.getID() + "' set.");
+			
 		}else if(arg.equalsIgnoreCase("create")) {
 			
 			if(args.length < 2) {
