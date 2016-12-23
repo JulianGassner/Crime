@@ -1,17 +1,16 @@
 package me.seemslegit.crime.commands;
 
+import me.seemslegit.crime.Messages;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.seemslegit.crime.Messages;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-
 public class CMD_admin implements CommandExecutor{
 
-	@Override
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(cs instanceof Player){
 			Player p = (Player) cs;
