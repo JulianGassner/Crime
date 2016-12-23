@@ -40,7 +40,7 @@ public class Main extends JavaPlugin{
 		return sys_cfg.getLocation("spawn");
 	}
 	
-	public Config sys_cfg = new Config(new File("Crime", "system.yml"));
+	public Config sys_cfg = new Config(new File("Crime//Config", "system.yml"));
 	private ErrorManager mng_error;
 	private MoneyManager mng_money;
 	private PlayerManager mng_player;
