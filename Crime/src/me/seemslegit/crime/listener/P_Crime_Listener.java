@@ -114,17 +114,15 @@ public class P_Crime_Listener implements Listener{
 		if(!(killer instanceof Player)) return;
 		
 		Player p = (Player) killer;
-		User t = new User(p);
-		
+		User k = new User(p);
+		if(k.isCop()) return;
 		
 		
 		if(u.getCrime() >= 1000) {
 			Bukkit.broadcastMessage(Messages.prefix+"§a"+p.getName()+"§e got the bounty of §c"+Bukkit.getOfflinePlayer(u.getUUID()).getName());
-		}else if(t.isCop()){
-			return;
 		}else{
-			t.addCrime(CrimeManager.CRIME_PER_KILL);
-			killer.sendMessage("§eYou have "+t.getCrime()+" Crime left...");
+			k.addCrime(CrimeManager.CRIME_PER_KILL);
+			killer.sendMessage("§eYou have "+k.getCrime()+" Crime left...");
 		}
 		
 	}

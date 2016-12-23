@@ -104,6 +104,8 @@ public class ShopManager {
 		Main.registerCommandonBukkit("shop");
 		Bukkit.getPluginCommand("shop").setExecutor(new ShopCommand());
 		
+		Bukkit.getPluginManager().registerEvents(new ShopRobbing(), Main.instance);
+		
 		load();
 	}
 

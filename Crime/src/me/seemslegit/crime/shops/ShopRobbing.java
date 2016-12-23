@@ -1,6 +1,13 @@
 package me.seemslegit.crime.shops;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
+import me.seemslegit.crime.regions.Region;
+import me.seemslegit.crime.regions.RegionType;
+import me.seemslegit.crime.shops.api.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -9,18 +16,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-import me.seemslegit.crime.items.CrimeItem;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-import me.seemslegit.crime.regions.Region;
-import me.seemslegit.crime.regions.RegionType;
-import me.seemslegit.crime.shops.api.Shop;
-
 public class ShopRobbing implements Listener{
 	
 	private HashMap<Shop, Long> nextrob = new HashMap<Shop, Long>();
 	private HashMap<Shop, Integer> rob = new HashMap<Shop, Integer>();
 	private HashMap<Shop, Long> lastrob = new HashMap<Shop, Long>();
+	private ArrayList<Player> lel = new ArrayList<Player>();
 	
 	private void addRob(Player p, Shop s) {
 		
@@ -92,13 +93,26 @@ public class ShopRobbing implements Listener{
 	
 	@EventHandler
 	public void onSneak(PlayerToggleSneakEvent e){
+		if(!e.isSneaking()) return;
 		Player p = e.getPlayer();
 		
-		if(p.getItemInHand() == null || p.getItemInHand().getType() == Material.AIR) return;
+		User u = new User(p);
 		
-		if(!CrimeItem.isWeapon(p.getItemInHand())) return;
+		if(u.isCop() || u.getJailTime() != -1) return;
+		
+		if(lel.contains(p)) return;
+		lel.add(p);
+	
+		if(p.getItemInHand() == null || p.getItemInHand().getType() == Material.AIR) {
+			lel.remove(p);
+			return;
+		}
+		
+		//if(!CrimeItem.isWeapon(p.getItemInHand())) return;
 		
 		Region[] regs = Main.instance.getRegionManager().getRegions(p.getLocation());
+		
+		boolean b = false;
 		
 		for(Region r : regs) {
 			
@@ -108,40 +122,49 @@ public class ShopRobbing implements Listener{
 			if(s == null) continue;
 			
 			//IST NE WAFFE 
-			
-			if(!canBeRobbed(s)) continue;
+			if(!canBeRobbed(s)) {
+				long l = nextrob.get(s);
+				l -= System.currentTimeMillis();
+				l /= 1000;
+				p.sendMessage("§cShop allready robbed (" + l + "sec to wait)!");
+				continue;
+			}
 			
 			final Player t = p;
 			final Shop ss = s;
 			final Region rr = r;
-			
 			Thread tr = new Thread(new Runnable() {
 				
-				@Override
 				public void run() {
 					try{
-						Bukkit.broadcastMessage("§cShop is being robbed ("+ss.getName()+")!");
-						while(t.isSneaking() && rr.isIn(t.getLocation())) {
-							
-							Thread.sleep(1000*10);
+						Bukkit.broadcastMessage("§eA Shop is being robbed by '"+t.getName()+"'!");
+						while(rr.isIn(t.getLocation())) {
 							
 							addRob(t, ss);
+							
+							Thread.sleep(1000*10);
 							
 						}
 						if(canBeRobbed(ss)) {
 							Bukkit.broadcastMessage("§c" + t.getName() + " run away!");
+							int ll = rob.get(ss);
+							if(ll > 8) ll = 8;
+							nextrob.put(ss, System.currentTimeMillis() + 1000 * 60 * ll);
 						}
 					}catch(Exception e) {
 						Main.instance.getErrorManager().registerError(e);
 					}
+					if(lel.contains(t)) lel.remove(t);
 				}
 			});
 			tr.setPriority(Thread.MIN_PRIORITY);
 			tr.start();
+			b = true;
 			break;
 			
 		}
-		
+		if(b) return;
+		lel.remove(p);
 		
 	}
 
