@@ -3,13 +3,6 @@ package me.seemslegit.crime.plugin;
 import java.io.File;
 import java.lang.reflect.Constructor;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import me.seemslegit.crime.CrimeThread;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.commands.CMD_config;
@@ -23,7 +16,15 @@ import me.seemslegit.crime.managment.JailManager;
 import me.seemslegit.crime.managment.MoneyManager;
 import me.seemslegit.crime.managment.PerformanceManager;
 import me.seemslegit.crime.managment.PlayerManager;
+import me.seemslegit.crime.regions.RegionManager;
 import me.seemslegit.crime.shops.ShopManager;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
 
@@ -50,6 +51,8 @@ public class Main extends JavaPlugin{
 	private CopManager mng_cop;
 	private ShopManager mng_shop;
 	private FarmingManager mng_farming;
+	private RegionManager mng_region;
+	
 	private Thread crimethread;
 	private boolean started = false;
 	
@@ -77,6 +80,7 @@ public class Main extends JavaPlugin{
         mng_cop = new CopManager();
 		mng_farming = new FarmingManager();
 		mng_shop = new ShopManager();
+		mng_region = new RegionManager();
 		
 		mng_item.init();
 		
@@ -186,12 +190,24 @@ public class Main extends JavaPlugin{
 	
 	/**
 	 * 
-	 * @param s {@link String}
+	 * @return {@link ShopManager}
 	 */
-	
 	public ShopManager getShopManager(){
 		return mng_shop;
 	}
+	
+	/**
+	 * 
+	 * @return {@link RegionManager}
+	 */
+	public RegionManager getRegionManager() {
+		return mng_region;
+	}
+	
+	/**
+	 * 
+	 * @param s {@link String}
+	 */
 	public static void registerCommandonBukkit(String s) {
 		if(Bukkit.getPluginCommand(s) != null) return;
 		try{

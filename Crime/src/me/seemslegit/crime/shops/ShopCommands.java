@@ -19,31 +19,29 @@ public class ShopCommands implements CommandExecutor{
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(!(cs instanceof Player)){
 			cs.sendMessage("You have to be a player.");
+			return true;
 		}
 		Player p = (Player) cs;
 		if(args[0].equalsIgnoreCase("pos1")){
-			if(p.hasPermission("crime.admin")){
+			if(p.hasPermission(Main.admin_permission)){
 				pos1.put(p.getUniqueId().toString(), p.getLocation());
 			}else{
 				p.sendMessage(Messages.no_permissions);
 			}
-		}
-		else if(args[0].equalsIgnoreCase("create")){
+		}else if(args[0].equalsIgnoreCase("create")){
 			if(args.length == 2){
 				Main.instance.getShopManager().createShop(pos1.get(p.getName()), pos2.get(p.getName()), args[1]);
 			}else{
 				p.sendMessage(Messages.error);
 			}
-		}
-		else if(args[0].equalsIgnoreCase("pos2")){
-			if(p.hasPermission("crime.admin")){
+		}else if(args[0].equalsIgnoreCase("pos2")){
+			if(p.hasPermission(Main.admin_permission)){
 				pos2.put(p.getUniqueId().toString(), p.getLocation());
 			}else{
 				p.sendMessage(Messages.no_permissions);
 			}
 		}else{
 			p.sendMessage(Messages.error);
-			
 		}
 		return false;
 	}

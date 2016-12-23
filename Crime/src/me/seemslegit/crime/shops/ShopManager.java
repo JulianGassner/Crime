@@ -1,23 +1,18 @@
 package me.seemslegit.crime.shops;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
+import me.seemslegit.crime.api.Config;
+import me.seemslegit.crime.plugin.Main;
+import me.seemslegit.crime.regions.Region;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import me.seemslegit.crime.plugin.Main;
 
 public class ShopManager {
-	File file = new File("plugins/Crime", "crime.yml");
-	@SuppressWarnings("static-access")
-	FileConfiguration cfg = new YamlConfiguration().loadConfiguration(file);
-	public ArrayList<String> Shopnames = new ArrayList<String>();
-	@SuppressWarnings("unchecked")
-	public ArrayList<String> tobeloaded = (ArrayList<String>) cfg.get("names");
+	private File file = new File("plugins//Crime", "shops.yml");
+	private Config cfg = new Config(file);
+	
 	
 	public ShopManager() {
 		init();
@@ -31,33 +26,19 @@ public class ShopManager {
 		Bukkit.getPluginCommand("shop").setExecutor(new ShopCommands());
 	}
 	
+	/**
+	 * 
+	 * @param p1 {@link Location}
+	 * @param p2 {@link Location}
+	 * @param name {@link String}
+	 */
 	public void createShop(Location p1, Location p2, String name){
+		name = "shop-" + name;
 		
+		Region r = new Region(name, p1.getWorld().getUID());
+		r.setLoc1(p1);
+		r.setLoc2(p2);
 		
-		cfg.set(name+".pos1", p1);
-		cfg.set(name+".pos2", p2);
-		
-		Shopnames.add("names."+name);
-		
-		try {
-			cfg.save(file);
-		} catch (IOException e) {
-			System.out.println("Error");
-			e.printStackTrace();
-		}
-		
-		
+		cfg.set("Regions." + name,  p1.getWorld().getUID().toString());
 	}
-	
-	public void saveShopstoCfg(){
-		cfg.set("names", Shopnames);
-		
-		try {
-			cfg.save(file);
-		} catch (IOException e) {
-			System.out.println("Error while saving shops");
-			e.printStackTrace();
-		}
-	}
-
 }
