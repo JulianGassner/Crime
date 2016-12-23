@@ -6,6 +6,7 @@ import java.util.UUID;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.plugin.Main;
 import me.seemslegit.crime.regions.Region;
+import me.seemslegit.crime.regions.RegionType;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityHeadRotation;
@@ -64,6 +65,7 @@ public class Shop {
 	public void setRegion(Region r) {
 		cfg.set("region", r.getFullID());
 		this.r = r;
+		r.setType(RegionType.SHOP);
 	}
 	
 	/**

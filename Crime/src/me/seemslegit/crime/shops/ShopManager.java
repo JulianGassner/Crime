@@ -10,6 +10,7 @@ import me.seemslegit.crime.shops.api.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class ShopManager {
 	private File file = new File("Crime//Config", "shops.yml");
@@ -37,6 +38,14 @@ public class ShopManager {
 		}
 		
 		return null;
+	}
+	
+	public void onInteract(Player p, Shop s) {
+		
+		if(!(s.getRegion().isIn(p.getLocation()))) return;
+		
+		p.sendMessage("test");
+		
 	}
 	
 	/**

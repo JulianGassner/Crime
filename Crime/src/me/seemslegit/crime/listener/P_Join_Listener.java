@@ -1,12 +1,15 @@
 package me.seemslegit.crime.listener;
 
+import io.netty.channel.Channel;
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.plugin.Main;
 import me.seemslegit.crime.shops.ShopManager;
+import me.seemslegit.crime.shops.api.CustomChannelHandler;
 import me.seemslegit.crime.shops.api.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -65,6 +68,10 @@ public class P_Join_Listener implements Listener{
 				
 			}
 		}, 20);
+		
+		Channel c = ((CraftPlayer)p).getHandle().playerConnection.networkManager.channel;
+		
+		c.pipeline().addAfter("decoder", "PacketInjector", new CustomChannelHandler(p));
 		
 	}
 	
