@@ -2,6 +2,7 @@ package me.seemslegit.crime.shops;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import me.seemslegit.crime.items.CrimeItem;
+import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.plugin.Main;
 import me.seemslegit.crime.regions.Region;
 import me.seemslegit.crime.regions.RegionType;
@@ -34,6 +36,9 @@ public class ShopRobbing implements Listener{
 		howoften++;
 		
 		p.getInventory().addItem(Main.instance.getItemManager().getItem("coin"));
+		User u = new User(p);
+		u.addCrime(41);
+		p.sendMessage("§eYou have "+u.getCrime()+" Crime left...");
 		
 		int max = 8;
 		
@@ -59,6 +64,7 @@ public class ShopRobbing implements Listener{
 			nextrob.put(s, System.currentTimeMillis() + 1000 * 60 * 8);
 			if(lastrob.containsKey(s)) lastrob.remove(s);
 			lastrob.put(s, System.currentTimeMillis());
+			Bukkit.broadcastMessage("§c"+u.getName()+" successfully robbed "+s.getName()+".");
 		}else{
 			rob.put(s, howoften);
 		}
@@ -114,12 +120,16 @@ public class ShopRobbing implements Listener{
 				@Override
 				public void run() {
 					try{
+						Bukkit.broadcastMessage("§cShop is being robbed ("+ss.getName()+")!");
 						while(t.isSneaking() && rr.isIn(t.getLocation())) {
 							
 							Thread.sleep(1000*10);
 							
 							addRob(t, ss);
 							
+						}
+						if(canBeRobbed(ss)) {
+							Bukkit.broadcastMessage("§c" + t.getName() + " run away!");
 						}
 					}catch(Exception e) {
 						Main.instance.getErrorManager().registerError(e);
