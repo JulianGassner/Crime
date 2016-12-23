@@ -27,6 +27,33 @@ public class Region {
 		setupConfig();
 	}
 	
+	public RegionType getType() {
+		
+		try{
+			
+			String str = cfg.getString("type");
+			
+			if(str != null) {
+				RegionType rt = RegionType.valueOf(str);
+				
+				if(rt != null) return rt;
+			}
+			
+		}catch(Exception e) {
+			Main.instance.getErrorManager().registerError(e);
+		}
+		
+		return RegionType.NONE;
+	}
+	
+	/**
+	 * 
+	 * @param rt {@link RegionType}
+	 */
+	public void setType(RegionType rt) {
+		cfg.set("type", rt.toString());
+	}
+	
 	private void reloadRegionPool() {
 		
 		World w = Bukkit.getWorld(getWorldUid());
