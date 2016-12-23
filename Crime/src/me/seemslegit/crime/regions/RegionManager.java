@@ -27,7 +27,34 @@ public class RegionManager {
 	public RegionManager() {
 
 	}
+	
+	/**
+	 * 
+	 * @param w {@link World}
+	 * @param id {@link String}
+	 * @return {@link Region}
+	 */
+	public Region getRegion(World w, String id) {
+		WorldRegionPool wrp = getWorldRegionPool(w);
+		
+		for(Region r : wrp.getRegions()) {
+			if(r.getID().equalsIgnoreCase(id)) {
+				return r;
+			}
+		}
+		
+		return null;
+	}
 
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @return {@link Boolean}
+	 */
+	public boolean hasBothPositions(Player p) {
+		return getPos1(p) != null && getPos2(p) != null;
+ 	}
+	
 	/**
 	 * 
 	 * @param p {@link Player}

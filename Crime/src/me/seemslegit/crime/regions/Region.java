@@ -55,6 +55,11 @@ public class Region {
 		return new File("Crime//Regions//" + u.toString());
 	}
 	
+	public void delete() {
+		cfg.getFile().delete();
+		reloadRegionPool();
+	}
+	
 	private void setupConfig() {
 		cfg = new Config(new File(worldToDirectory(getWorldUid()), getID() + ".yml"));
 	}

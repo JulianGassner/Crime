@@ -48,14 +48,14 @@ public class RegionListener implements Listener{
 				if(newr.contains(r)) {
 					newr.remove(r);
 				}else{
-					p.sendMessage(r.getFarewell());
+					if(r.getFarewell() != null) p.sendMessage(r.getFarewell());
 				}
 			}
 			
 		}
 		
 		for(Region r : newr) {
-			p.sendMessage(r.getGreeting());
+			if(r.getGreeting() != null) p.sendMessage(r.getGreeting());
 		}
 		
 		
