@@ -2,14 +2,14 @@ package me.seemslegit.crime.managment;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 import me.seemslegit.crime.api.ItemAPI;
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.items.ItemFunctions;
 import me.seemslegit.crime.plugin.Main;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class ItemManager {
 
@@ -17,6 +17,11 @@ public class ItemManager {
 
 	public void init() {
 		Bukkit.getPluginManager().registerEvents(new ItemFunctions(), Main.instance);
+		
+		CrimeItem coin = new CrimeItem("coin", new ItemAPI().material(Material.GOLD_NUGGET).displayName("§6Gold nugget").lore("§7Equals 14$")
+				.build());
+		coin.setUnbreakable(false);
+		coin.register();
 		
 		CrimeItem drugs = new CrimeItem("drugs", new ItemAPI().material(Material.SUGAR).displayName("§cWeed").lore("§cDrugs").build());
 		drugs.setUnbreakable(false);

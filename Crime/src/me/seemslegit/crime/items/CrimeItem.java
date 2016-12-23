@@ -1,8 +1,8 @@
 package me.seemslegit.crime.items;
 
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.inventory.ItemStack;
+
+import me.seemslegit.crime.plugin.Main;
 
 public class CrimeItem {
 
@@ -12,6 +12,7 @@ public class CrimeItem {
 	private boolean onlycop = false;
 	private boolean drop = false;
 	private boolean unbreakable = true;
+	private boolean weapon = false;
 	
 	public CrimeItem(String name) {
 		this(name, null);
@@ -38,6 +39,16 @@ public class CrimeItem {
 	 * @param b {@link Boolean}
 	 * @return {@link CrimeItem}
 	 */
+	public CrimeItem setWeapon(boolean b) {
+		this.weapon = b;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param b {@link Boolean}
+	 * @return {@link CrimeItem}
+	 */
 	public CrimeItem setIllegal(boolean b) {
 		this.illegal = b;
 		return this;
@@ -51,6 +62,14 @@ public class CrimeItem {
 	public CrimeItem setDroppable(boolean b) {
 		this.drop = b;
 		return this;
+	}
+	
+	/**
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean isWeapon() {
+		return weapon;
 	}
 	
 	/**
@@ -115,6 +134,7 @@ public class CrimeItem {
 		item.setBoolean("cillegal", isIllegal());
 		item.setBoolean("coc", isOnlyCop());
 		item.setBoolean("cdrop", shouldDrop());
+		item.setBoolean("cweapon", isWeapon());
 		item.setInteger("Unbreakable", (isUnbreakable() ? 1 : 0));
 		return item.getItem();
 	}
@@ -127,6 +147,17 @@ public class CrimeItem {
 	public static boolean isOnlyCop(ItemStack i) {
 		NBTItem item = new NBTItem(i);
 		if(item.hasKey("coc")) return item.getBoolean("coc");
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param i {@link ItemStack}
+	 * @return {@link Boolean}
+	 */
+	public static boolean isWeapon(ItemStack i) {
+		NBTItem item = new NBTItem(i);
+		if(item.hasKey("cweapon")) return item.getBoolean("cweapon");
 		return false;
 	}
 	
