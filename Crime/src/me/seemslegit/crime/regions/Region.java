@@ -158,11 +158,11 @@ public class Region {
 		double y = loc.getBlockY();
 		double z = loc.getBlockZ();
 		
-		if(x > x_min && x < x_max) {
+		if(x >= x_min && x <= x_max) {
 			
-			if(y > y_min && y < y_max) {
+			if(y >= y_min && y <= y_max) {
 				
-				if(z > z_min && z < z_max) return true;
+				if(z >= z_min && z <= z_max) return true;
 				
 			}
 			

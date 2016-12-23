@@ -1,23 +1,73 @@
 package me.seemslegit.crime.regions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.seemslegit.crime.plugin.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 public class RegionManager {
 
+	private HashMap<String, Location> pos1 = new HashMap<String, Location>();
+	private HashMap<String, Location> pos2 = new HashMap<String, Location>();
+	
 	private ArrayList<WorldRegionPool> regions = new ArrayList<WorldRegionPool>();
 	
 	public void init() {
 		Bukkit.getPluginManager().registerEvents(new RegionListener(), Main.instance);
+		
+		Main.registerCommandonBukkit("region");
+		Bukkit.getPluginCommand("region").setExecutor(new RegionCommand());
 	}
 	
 	public RegionManager() {
 
+	}
+
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @return {@link Location}
+	 */
+	public Location getPos1(Player p) {
+		return pos1.get(p.getUniqueId().toString());
+	}
+	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @return {@link Location}
+	 */
+	public Location getPos2(Player p) {
+		return pos2.get(p.getUniqueId().toString());
+	}
+	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @param loc {@link Location}
+	 */
+	public void setPos2(Player p, Location loc) {
+		String uuid = p.getUniqueId().toString();
+		if(pos2.containsKey(uuid)) pos2.remove(uuid);
+		pos2.put(uuid, loc);
+		p.sendMessage("§dPosition 2 set.");
+	}
+	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @param loc {@link Location}
+	 */
+	public void setPos1(Player p, Location loc) {
+		String uuid = p.getUniqueId().toString();
+		if(pos1.containsKey(uuid)) pos1.remove(uuid);
+		pos1.put(uuid, loc);
+		p.sendMessage("§dPosition 1 set.");
 	}
 	
 	/**

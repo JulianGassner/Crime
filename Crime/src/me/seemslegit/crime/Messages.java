@@ -7,6 +7,7 @@ public final class Messages {
 	public static String error = prefix+"§cA error occured. Error Code 401. Contact please an admin.";
 	public static String unknownCommand = prefix+"§8Sorry but we don't know this command.";
 	public static String no_permissions = prefix + "§cNo permissions.";
+	public static String invalid_argument = prefix + "§cInvalid argument!";
 	
 	//Player messages
 	public static String p_join  = "§8[§a+§8] %1% joined the game.";

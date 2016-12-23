@@ -31,15 +31,13 @@ public class WorldRegionPool {
 		ArrayList<Region> regions = new ArrayList<Region>();
 		
 		for(File ll : f.listFiles()) {
-			
 			if(ll.isDirectory()) continue;
 		
 			if(!ll.getName().endsWith(".yml")) continue;
 			
-			String id = ll.getName().substring(0, ll.getName().length() - (1 + 4));
+			String id = ll.getName().substring(0, ll.getName().length() - (4));
 			
 			regions.add(new Region(id, getWorld().getUID()));
-			
 		}
 		
 		Region[] finalreturn = new Region[regions.size()];

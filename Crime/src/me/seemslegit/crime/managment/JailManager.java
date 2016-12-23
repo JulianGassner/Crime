@@ -4,7 +4,7 @@ import java.io.File;
 
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.jail.Jail;
-import me.seemslegit.crime.jail.Jail_Listener;
+import me.seemslegit.crime.jail.JailListener;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
 
@@ -20,7 +20,7 @@ public class JailManager {
 		cfg_jail = new Config(new File("Crime//Config", "jail.yml"));
 		jail = new Jail(this);
 		
-		Bukkit.getPluginManager().registerEvents(new Jail_Listener(), Main.instance);
+		Bukkit.getPluginManager().registerEvents(new JailListener(), Main.instance);
 	}
 	
 	public JailManager() {
