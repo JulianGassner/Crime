@@ -2,7 +2,11 @@ package me.seemslegit.crime.listener;
 
 import me.seemslegit.crime.Messages;
 import me.seemslegit.crime.plugin.Main;
+import me.seemslegit.crime.shops.ShopManager;
+import me.seemslegit.crime.shops.api.Shop;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,12 +32,39 @@ public class P_Join_Listener implements Listener{
 	 * 
 	 * @param e {@link PlayerJoinEvent}
 	 */
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
 		
 		Player p = e.getPlayer();
 		
 		e.setJoinMessage(Messages.p_join.replace("%1%", p.getDisplayName()));
+		
+		final Player t = p;
+		final Location old = t.getLocation().clone();			
+		final boolean flight = t.getAllowFlight();
+		final boolean flying = t.isFlying();
+		
+		t.setAllowFlight(true);
+		
+		t.teleport(t.getLocation().add(0, 20000, 0));
+		t.setFlying(true);
+		
+		ShopManager sm = Main.instance.getShopManager();
+		
+		for(Shop s : sm.shops) {
+			s.spawnEntity(p);
+		}
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
+			
+			public void run() {
+				
+				t.teleport(old);
+				t.setFlying(flying);
+				t.setAllowFlight(flight);
+				
+			}
+		}, 20);
 		
 	}
 	

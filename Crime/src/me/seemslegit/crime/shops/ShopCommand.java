@@ -48,6 +48,8 @@ public class ShopCommand implements CommandExecutor{
 			
 			for(int i = 3;i<args.length;i++) name += " " + args[i];
 			
+			name = name.replaceFirst(" ", "");
+			
 			Region r = Main.instance.getRegionManager().getRegion(p.getWorld(), region);
 			
 			if(r == null) {

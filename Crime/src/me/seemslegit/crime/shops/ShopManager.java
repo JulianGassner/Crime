@@ -15,7 +15,7 @@ public class ShopManager {
 	private File file = new File("Crime//Config", "shops.yml");
 	private Config cfg = new Config(file);
 	
-	private ArrayList<Shop> shops = new ArrayList<Shop>();
+	public ArrayList<Shop> shops = new ArrayList<Shop>();
 	
 	/**
 	 * 
@@ -58,7 +58,7 @@ public class ShopManager {
 	}
 	
 	public void load() {
-		for(Shop s : shops) s.despawnEntity();
+		//for(Shop s : shops) s.despawnEntity();
 		shops.clear();
 		File f = new File("Crime//Shops");
 		
@@ -85,6 +85,7 @@ public class ShopManager {
 			if(r == null) continue;
 			
 			Shop s = new Shop(id, loc, r);
+			System.out.println(id);
 			s.spawnEntity();
 			shops.add(s);
 		}

@@ -22,6 +22,8 @@ public class RegionManager {
 		
 		Main.registerCommandonBukkit("region");
 		Bukkit.getPluginCommand("region").setExecutor(new RegionCommand());
+		
+		for(World w : Bukkit.getWorlds()) getWorldRegionPool(w);
 	}
 	
 	public RegionManager() {

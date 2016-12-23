@@ -18,7 +18,7 @@ public class CMD_admin implements CommandExecutor{
 				
 				return false;
 			}
-			if(args.length > 4){
+			if(args.length != 0){
 				if(args[0].equalsIgnoreCase("coins")){
 					if(args.length == 4){
 						if(args[1].equalsIgnoreCase("add")){

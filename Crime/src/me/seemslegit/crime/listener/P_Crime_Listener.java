@@ -6,6 +6,8 @@ import me.seemslegit.crime.managment.CrimeManager;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
+import me.seemslegit.crime.shops.ShopManager;
+import me.seemslegit.crime.shops.api.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,9 +34,18 @@ public class P_Crime_Listener implements Listener{
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		
 		User u = new User(p);
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
+			
+			public void run() {
+				ShopManager sm = Main.instance.getShopManager();
+				
+				for(Shop s : sm.shops) s.spawnEntity(p);
+			}
+		}, 20);
 		
 		if(u.hasCrime()) {
 			e.setRespawnLocation(Main.instance.getJailManager().getLocation());
