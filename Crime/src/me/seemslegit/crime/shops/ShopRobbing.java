@@ -150,6 +150,9 @@ public class ShopRobbing implements Listener{
 							int ll = rob.get(ss);
 							if(ll > 8) ll = 8;
 							nextrob.put(ss, System.currentTimeMillis() + 1000 * 60 * ll);
+							if(lastrob.containsKey(ss)) lastrob.remove(ss);
+							lastrob.put(ss, System.currentTimeMillis());
+							rob.remove(ss);
 						}
 					}catch(Exception e) {
 						Main.instance.getErrorManager().registerError(e);
