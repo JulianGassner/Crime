@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.seemslegit.crime.CrimeThread;
 import me.seemslegit.crime.api.Config;
+import me.seemslegit.crime.commands.CMD_admin;
 import me.seemslegit.crime.commands.CMD_config;
 import me.seemslegit.crime.commands.CMD_crime;
 import me.seemslegit.crime.cop.CopManager;
@@ -63,6 +64,8 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginCommand("config").setExecutor(new CMD_config());
 		registerCommandonBukkit("crime");
 		Bukkit.getPluginCommand("crime").setExecutor(new CMD_crime());
+		registerCommandonBukkit("admin");
+		Bukkit.getPluginCommand("admin").setExecutor(new CMD_admin());
 		
 	}
 	
