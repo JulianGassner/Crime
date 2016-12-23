@@ -30,6 +30,24 @@ public class RegionManager {
 	
 	/**
 	 * 
+	 * @param fullid {@link String}
+	 * @return {@link Region}
+	 */
+	public Region getRegion(String fullid) {
+		
+		for(WorldRegionPool wrp : regions) {
+			
+			for(Region r : wrp.getRegions()) {
+				if(r.getFullID().equalsIgnoreCase(fullid)) return r;
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 
 	 * @param w {@link World}
 	 * @param id {@link String}
 	 * @return {@link Region}

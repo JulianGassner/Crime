@@ -28,6 +28,11 @@ public class WorldRegionPool {
 			return;
 		}
 		
+		if(!f.isDirectory()) {
+			this.regions = Main.instance.getRegionManager().getEmptyRegionArray();
+			return;
+		}
+		
 		ArrayList<Region> regions = new ArrayList<Region>();
 		
 		for(File ll : f.listFiles()) {

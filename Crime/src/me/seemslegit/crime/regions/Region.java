@@ -27,6 +27,35 @@ public class Region {
 		setupConfig();
 	}
 	
+	/**
+	 * 
+	 * @return {@link String}
+	 */
+	public String getFullID() {
+		return getWorldUid().toString() + "-" + getID();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+
+		if(obj instanceof Region) {
+			
+			Region other = (Region) obj;
+			
+			if(other.getWorldUid().equals(getWorldUid())) {
+				
+				if(other.getID().equalsIgnoreCase(getID())) {
+					cfg.reload();
+					other.cfg.reload();
+					return true;
+				}
+				
+			}
+		}
+		
+		return false;
+	}
+	
 	public RegionType getType() {
 		
 		try{
