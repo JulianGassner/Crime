@@ -1,18 +1,19 @@
 package me.seemslegit.crime.cop;
 
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import me.seemslegit.crime.items.CrimeItem;
 import me.seemslegit.crime.listener.P_Cop_Listener;
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 
 
@@ -30,6 +31,29 @@ public class CopManager {
 		
 		Bukkit.getPluginManager().registerEvents(new P_Cop_Listener(), Main.instance);
 		Bukkit.getPluginManager().registerEvents(new CopItems(), Main.instance);
+	}
+	
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @param b {@link User}
+	 */
+	public void printInfos(Player p, User b) {
+		User a = new User(p);
+		p.sendMessage("§e-------------------------------");
+		p.sendMessage("§eStats of Player "+b.getName());
+		if(a.isCop()){
+			p.sendMessage("§eMoney: "+b.getCoins());
+			p.sendMessage("§eCrime: §c"+b.getCrime());
+		}
+		if(b.hasCrime()){
+			p.sendMessage("§eHe is being §csearched§e !");
+		}else{
+			if(b.isInJail()){
+				p.sendMessage("§eJail-Time: "+b.getJailTime());
+				p.sendMessage("§3He is a §1Prisoner");
+			}else p.sendMessage("§eHe is a §cinnocent.");
+		}
 	}
 	
 	/**

@@ -3,9 +3,17 @@ package me.seemslegit.crime.plugin;
 import java.io.File;
 import java.lang.reflect.Constructor;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import me.seemslegit.crime.CrimeThread;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.commands.CMD_config;
+import me.seemslegit.crime.commands.CMD_crime;
 import me.seemslegit.crime.cop.CopManager;
 import me.seemslegit.crime.farming.FarmingManager;
 import me.seemslegit.crime.listener.W_Performance_Listener;
@@ -18,13 +26,6 @@ import me.seemslegit.crime.managment.PerformanceManager;
 import me.seemslegit.crime.managment.PlayerManager;
 import me.seemslegit.crime.regions.RegionManager;
 import me.seemslegit.crime.shops.ShopManager;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin{
 
@@ -60,6 +61,8 @@ public class Main extends JavaPlugin{
 		
 		registerCommandonBukkit("config");
 		Bukkit.getPluginCommand("config").setExecutor(new CMD_config());
+		registerCommandonBukkit("crime");
+		Bukkit.getPluginCommand("crime").setExecutor(new CMD_crime());
 		
 	}
 	
