@@ -80,7 +80,7 @@ public class P_Cop_Listener implements Listener{
 	@EventHandler
 	public void onDoor(PlayerInteractEvent e){
 		User u = new User(e.getPlayer());
-		if(u.getPlayer().hasPermission(Main.instance.cop_permission)){
+		if(u.isCop()){
 			if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType().equals(Material.IRON_DOOR)){
 				Door door = (Door) e.getClickedBlock().getState().getData();
 				if(door.isOpen()){
