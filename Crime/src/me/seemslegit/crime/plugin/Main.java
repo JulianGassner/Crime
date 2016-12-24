@@ -3,6 +3,13 @@ package me.seemslegit.crime.plugin;
 import java.io.File;
 import java.lang.reflect.Constructor;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import me.seemslegit.crime.CrimeThread;
 import me.seemslegit.crime.api.Config;
 import me.seemslegit.crime.commands.CMD_admin;
@@ -21,16 +28,10 @@ import me.seemslegit.crime.managment.PlayerManager;
 import me.seemslegit.crime.regions.RegionManager;
 import me.seemslegit.crime.shops.ShopManager;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class Main extends JavaPlugin{
 
 	public static final String admin_permission = "crime.admin";
+	public final String cop_permission = "crime.cop";
 	
 	public static Main instance;
 	

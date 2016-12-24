@@ -1,19 +1,22 @@
 package me.seemslegit.crime.listener;
 
-import me.seemslegit.crime.events.RegionLeavingEvent;
-import me.seemslegit.crime.playerapi.User;
-import me.seemslegit.crime.plugin.Main;
-import me.seemslegit.crime.regions.RegionType;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Door;
+
+import me.seemslegit.crime.events.RegionLeavingEvent;
+import me.seemslegit.crime.playerapi.User;
+import me.seemslegit.crime.plugin.Main;
+import me.seemslegit.crime.regions.RegionType;
 
 
 public class P_Cop_Listener implements Listener{
@@ -67,6 +70,25 @@ public class P_Cop_Listener implements Listener{
 				
 				e.setCancelled(true);
 				e.getItem().remove();
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param e {@link PlayerInteractEvent}
+	 */
+	@EventHandler
+	public void onDoor(PlayerInteractEvent e){
+		User u = new User(e.getPlayer());
+		if(u.getPlayer().hasPermission(Main.instance.cop_permission)){
+			if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType().equals(Material.IRON_DOOR)){
+				Door door = (Door) e.getClickedBlock().getState().getData();
+				if(door.isOpen()){
+					door.setOpen(false);
+				}else{
+					door.setOpen(true);
+				}
+				
 			}
 		}
 	}
