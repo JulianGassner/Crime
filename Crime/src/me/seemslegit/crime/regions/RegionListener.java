@@ -3,10 +3,6 @@ package me.seemslegit.crime.regions;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.seemslegit.crime.events.RegionEnteringEvent;
-import me.seemslegit.crime.events.RegionLeavingEvent;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,6 +10,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import me.seemslegit.crime.events.RegionEnteringEvent;
+import me.seemslegit.crime.events.RegionLeavingEvent;
+import me.seemslegit.crime.plugin.Main;
 
 public class RegionListener implements Listener{
 
@@ -23,6 +23,13 @@ public class RegionListener implements Listener{
 		
 	}
 
+	/**
+	 * 
+	 * @param p {@link Player}
+	 * @param loc1 {@link Location}
+	 * @param loc2 {@link Location}
+	 * @return {@link Boolean}
+	 */
 	private synchronized boolean handleMove(Player p, Location loc1, Location loc2) {
 		Location b_loc1 = loc1.getBlock().getLocation();
 		Location b_loc2 = loc2.getBlock().getLocation();
@@ -87,6 +94,10 @@ public class RegionListener implements Listener{
 		return b;
 	}
 	
+	/**
+	 * 
+	 * @param e {@link PlayerMoveEvent}
+	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onMove(PlayerMoveEvent e) {
 		

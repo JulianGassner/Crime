@@ -3,12 +3,12 @@ package me.seemslegit.crime.regions;
 import java.io.File;
 import java.util.UUID;
 
-import me.seemslegit.crime.api.Config;
-import me.seemslegit.crime.plugin.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import me.seemslegit.crime.api.Config;
+import me.seemslegit.crime.plugin.Main;
 
 public class Region {
 
@@ -56,6 +56,10 @@ public class Region {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return {@link RegionType}
+	 */
 	public RegionType getType() {
 		
 		try{
@@ -240,6 +244,10 @@ public class Region {
 		return cfg.getString("farewell", null);
 	}
 
+	/**
+	 * 
+	 * @return {@link String}
+	 */
 	public String getGreeting() {
 		return cfg.getString("greeting", null);
 	}
