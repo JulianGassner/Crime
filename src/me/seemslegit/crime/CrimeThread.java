@@ -1,11 +1,11 @@
 package me.seemslegit.crime;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import me.seemslegit.crime.playerapi.User;
 import me.seemslegit.crime.playerapi.UserBase;
 import me.seemslegit.crime.plugin.Main;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class CrimeThread implements Runnable{
 
@@ -49,8 +49,6 @@ public class CrimeThread implements Runnable{
 			running = false;
 			Main.instance.startCrimeThread();
 		}
-		running = false;
-		
 	}
 	
 }
